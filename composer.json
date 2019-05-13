@@ -1,0 +1,29 @@
+{
+    "name": "portedcheese/contact-page",
+    "description": "Contact page for site",
+    "type": "library",
+    "require": {
+        "portedcheese/base-settings": "^v1.0",
+        "portedcheese/seo-integration": "^v1.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vladimir Peshkov",
+            "email": "vladimirpeshkov5@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "PortedCheese\\ContactPage\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PortedCheese\\ContactPage\\ServiceProvider"
+            ]
+        }
+    }
+}

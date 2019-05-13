@@ -1,0 +1,48 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateContactsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')
+                ->comment('Заголовок');
+            $table->string('description')
+                ->nullable()
+                ->comment('Описание');
+            $table->string('latitude')
+                ->nullable()
+                ->comment('Широта');
+            $table->string('longitude')
+                ->nullable()
+                ->comment('долгота');
+            $table->json('work_time')
+                ->nullable()
+                ->comment('Описание времени работы');
+            $table->json('links')
+                ->nullable()
+                ->comment('Ссылки на телефон, email, сайты и соц. сети');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('contacts');
+    }
+}
