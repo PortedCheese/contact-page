@@ -1,0 +1,10 @@
+<?php
+
+namespace {{namespace}}Http\Controllers\ContactPage\Site;
+
+use Illuminate\Http\Request;
+
+class ContactController extends \PortedCheese\ContactPage\Http\Controllers\Site\ContactController
+{
+
+}

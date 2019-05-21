@@ -1,0 +1,9 @@
+<?php
+
+namespace {{namespace}};
+
+
+class Contact extends \PortedCheese\ContactPage\Models\Contact
+{
+
+}

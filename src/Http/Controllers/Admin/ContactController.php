@@ -2,11 +2,11 @@
 
 namespace PortedCheese\ContactPage\Http\Controllers\Admin;
 
+use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use PortedCheese\ContactPage\Http\Requests\ContactStoreRequest;
-use PortedCheese\ContactPage\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -33,12 +33,28 @@ class ContactController extends Controller
                 $config[$key] = $request->get($key);
             }
         }
+
         if ($request->has('theme')) {
             $config['customTheme'] = $request->get('theme');
         }
         else {
             $config['customTheme'] = null;
         }
+
+        if ($request->has('own-admin')) {
+            $config['useOwnAdminRoutes'] = true;
+        }
+        else {
+            $config['useOwnAdminRoutes'] = false;
+        }
+
+        if ($request->has('own-site')) {
+            $config['useOwnSiteRoutes'] = true;
+        }
+        else {
+            $config['useOwnSiteRoutes'] = false;
+        }
+
         siteconf()->save('contact-page', $config);
         return redirect()
             ->back()

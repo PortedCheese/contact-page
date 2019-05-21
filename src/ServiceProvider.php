@@ -3,6 +3,7 @@
 namespace PortedCheese\ContactPage;
 
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
+use PortedCheese\ContactPage\Console\Commands\ContactOverrideCommand;
 use PortedCheese\ContactPage\Models\Contact;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -38,7 +39,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // Console.
         if ($this->app->runningInConsole()) {
             $this->commands([
-                ContactMakeCommand::class
+                ContactMakeCommand::class,
+                ContactOverrideCommand::class
             ]);
         }
     }

@@ -1,0 +1,12 @@
+
+
+if (siteconf()->get('contact-page.useOwnSiteRoutes')) {
+    Route::group([
+        'namespace' => 'ContactPage\Site',
+        'as' => 'site.contact.',
+        'prefix' => siteconf()->get('contact-page.path'),
+    ], function () {
+        Route::get('/', 'ContactController@page')
+            ->name('page');
+    });
+}

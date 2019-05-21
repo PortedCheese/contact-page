@@ -4,7 +4,7 @@ namespace PortedCheese\ContactPage\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PortedCheese\ContactPage\Models\Contact;
+use App\Contact;
 use PortedCheese\SeoIntegration\Models\Meta;
 
 class ContactController extends Controller

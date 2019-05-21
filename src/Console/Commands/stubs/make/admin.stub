@@ -1,9 +1,9 @@
-<?php
 
-if (! siteconf()->get('contact-page.useOwnAdminRoutes')) {
+
+if (siteconf()->get('contact-page.useOwnAdminRoutes')) {
     Route::group([
-        'namespace' => 'PortedCheese\ContactPage\Http\Controllers\Admin',
-        'middleware' => ['web', 'role:admin|editor'],
+        'namespace' => 'ContactPage\Admin',
+        'middleware' => ['role:admin|editor'],
         'as' => 'admin.',
         'prefix' => 'admin',
     ], function () {
@@ -23,17 +23,5 @@ if (! siteconf()->get('contact-page.useOwnAdminRoutes')) {
             Route::post('links', 'ContactController@setLinks')
                 ->name('set-links');
         });
-    });
-}
-
-if (! siteconf()->get('contact-page.useOwnSiteRoutes')) {
-    Route::group([
-        'namespace' => 'PortedCheese\ContactPage\Http\Controllers\Site',
-        'middleware' => ['web'],
-        'as' => 'site.contact.',
-        'prefix' => siteconf()->get('contact-page.path'),
-    ], function () {
-        Route::get('/', 'ContactController@page')
-            ->name('page');
     });
 }
