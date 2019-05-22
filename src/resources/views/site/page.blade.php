@@ -11,23 +11,21 @@
 @endpush
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <contact-map :enter-point-coordinates="{{ json_encode($mapCenter) }}"
-                         :points-info="{{ json_encode($coordinates) }}">
-            </contact-map>
-            @foreach ($contacts as $contact)
-                <div class="col-sm-12 col-md-6 col-lg-4 mb-3 text-center">
-                    <h4 class="move-center"
-                        style="cursor: pointer"
-                        data-id="{{ $contact->model->id }}">
-                        <u>{{ $contact->model->title }}</u>
-                    </h4>
-                    <p>{{ $contact->model->description }}</p>
-                    @include("contact-page::site.days")
-                    @include("contact-page::site.contacts")
-                </div>
-            @endforeach
-        </div>
+    <div class="col-12">
+        <contact-map :enter-point-coordinates="{{ json_encode($mapCenter) }}"
+                     :points-info="{{ json_encode($coordinates) }}">
+        </contact-map>
     </div>
+    @foreach ($contacts as $contact)
+        <div class="col-sm-12 col-md-6 col-lg-4 mb-3 text-center">
+            <h4 class="move-center"
+                style="cursor: pointer"
+                data-id="{{ $contact->model->id }}">
+                <u>{{ $contact->model->title }}</u>
+            </h4>
+            <p>{{ $contact->model->description }}</p>
+            @include("contact-page::site.days")
+            @include("contact-page::site.contacts")
+        </div>
+    @endforeach
 @endsection
