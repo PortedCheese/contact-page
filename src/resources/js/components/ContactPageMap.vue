@@ -1,10 +1,10 @@
 <template>
-    <div id="page-map" class="mb-3"></div>
+    <div id="page-map" :style="'height: ' + mapSize + 'px;'"></div>
 </template>
 
 <script>
     export default {
-        props: ['enterPointCoordinates', 'pointsInfo'],
+        props: ['enterPointCoordinates', 'pointsInfo', 'mapSize', 'mapZoom', 'icoPreset'],
         data() {
             return {
                 points: [],
@@ -16,11 +16,12 @@
                 // Создание карты.
                 let pageMap = this.map = new ymaps.Map("page-map", {
                     center: this.enterPointCoordinates,
-                    zoom: 14,
+                    zoom: this.mapZoom,
                     controls: ['smallMapDefaultSet']
                 }, {
                     searchControlProvider: 'yandex#search'
                 });
+                pageMap.behaviors.disable('scrollZoom');
 
                 // Создание меток.
                 for (let index in this.pointsInfo) {
@@ -28,7 +29,10 @@
                     let pointObject = new ymaps.Placemark(point.coord, {
                         balloonContentHeader: point.title,
                         balloonContentBody: point.description
+                    }, {
+                        preset: this.icoPreset
                     });
+
                     this.points[point.id] = pointObject;
                     this.map.geoObjects.add(pointObject);
                 }
@@ -39,7 +43,7 @@
                     $(element).on('click', function() {
                         let id = $(this).attr('data-id');
                         let coordinates = pointsCoordinates[id].coord;
-                        pageMap.setCenter(coordinates, 14, {
+                        pageMap.setCenter(coordinates, this.zoom, {
                             duration: 400
                         });
 
@@ -59,6 +63,5 @@
 <style scoped>
     #page-map {
         width: 100%;
-        height: 250px;
     }
 </style>

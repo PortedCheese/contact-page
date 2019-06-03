@@ -5,7 +5,7 @@
 @section('header-title', "Контакты")
 
 @section('content')
-    <div class="col-12">
+    <div class="col-12 mb-3">
         @include("contact-page::site.map")
     </div>
     @foreach ($contacts as $contact)
