@@ -12,14 +12,7 @@ class ContactController extends Controller
     public function page()
     {
         $contacts = [];
-        $coordinates = [];
         foreach (Contact::all() as $item) {
-            $coordinates[$item->id] = [
-                'id' => $item->id,
-                'coord' => [$item->longitude, $item->latitude],
-                'title' => $item->title,
-                'description' => $item->description,
-            ];
             $links = [];
             foreach ($item->links_data as $linkName => $linkData) {
                 if (empty($linkData)) {
@@ -47,8 +40,6 @@ class ContactController extends Controller
         return view('contact-page::site.page', [
             'contacts' => $contacts,
             'currentDay' => date('w', time()),
-            'coordinates' => $coordinates,
-            'mapCenter' => !empty($coordinates) ? reset($coordinates)['coord'] : [],
             'customTheme' => siteconf()->get('contact-page.customTheme'),
             'pageMetas' => Meta::getByPageKey('contacts'),
         ]);

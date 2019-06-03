@@ -2,9 +2,9 @@
 
 namespace PortedCheese\ContactPage;
 
+use App\Contact;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
 use PortedCheese\ContactPage\Console\Commands\ContactOverrideCommand;
-use PortedCheese\ContactPage\Models\Contact;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -25,15 +25,28 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // Подключаем шаблоны.
         $this->loadViewsFrom(__DIR__ . "/resources/views", "contact-page");
 
-        // Пеменные для админки.
+        // Пеменные.
         view()->composer('contact-page::admin.layout', function ($view) {
             $view->with('contacts', Contact::all());
+
             $apiKey = siteconf()->get('contact-page.yandexApi');
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
         });
-        view()->composer('contact-page::site.page', function ($view) {
+        view()->composer("contact-page::site.map", function ($view) {
             $apiKey = siteconf()->get('contact-page.yandexApi');
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
+
+            $coordinates = [];
+            foreach (Contact::all() as $item) {
+                $coordinates[$item->id] = [
+                    'id' => $item->id,
+                    'coord' => [$item->longitude, $item->latitude],
+                    'title' => $item->title,
+                    'description' => $item->description,
+                ];
+            }
+            $view->with("coordinates", $coordinates);
+            $view->with("mapCenter", !empty($coordinates) ? reset($coordinates)['coord'] : []);
         });
 
         // Console.

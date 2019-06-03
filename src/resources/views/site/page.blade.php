@@ -4,17 +4,9 @@
 
 @section('header-title', "Контакты")
 
-@push('js-lib')
-    <script src="https://api-maps.yandex.ru/2.1/?apikey={{ $apiKey }}&lang=ru_RU"
-            type="text/javascript">
-    </script>
-@endpush
-
 @section('content')
     <div class="col-12">
-        <contact-map :enter-point-coordinates="{{ json_encode($mapCenter) }}"
-                     :points-info="{{ json_encode($coordinates) }}">
-        </contact-map>
+        @include("contact-page::site.map")
     </div>
     @foreach ($contacts as $contact)
         <div class="col-sm-12 col-md-6 col-lg-4 mb-3 text-center">
