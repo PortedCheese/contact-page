@@ -2,19 +2,20 @@
 
 namespace PortedCheese\ContactPage\Console\Commands;
 
+use App\Menu;
+use App\MenuItem;
 use Illuminate\Console\Command;
-use Illuminate\Console\DetectsApplicationNamespace;
+use PortedCheese\BaseSettings\Console\Commands\BaseConfigModelCommand;
 
-class ContactMakeCommand extends Command
+class ContactMakeCommand extends BaseConfigModelCommand
 {
-    use DetectsApplicationNamespace;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'make:contact-page';
+    protected $signature = 'make:contact-page
+                                {--menu : Only config menu}';
 
     /**
      * The console command description.
@@ -31,6 +32,18 @@ class ContactMakeCommand extends Command
         'Contact.stub' => 'Contact.php',
     ];
 
+    protected $configName = "contact-page";
+
+    protected $configValues = [
+        'customTheme' => null,
+        'path' => 'contacts',
+        'yandexApi' => null,
+        'useOwnAdminRoutes' => false,
+        'useOwnSiteRoutes' => false,
+    ];
+
+    protected $dir = __DIR__;
+
     /**
      * Create a new command instance.
      *
@@ -40,8 +53,7 @@ class ContactMakeCommand extends Command
     {
         parent::__construct();
 
-        $namespace = $this->getAppNamespace();
-        $this->namespace = str_replace("\\", '', $namespace);
+        $this->configValues['yandexApi'] = env("YANDEX_MAP_KEY", "");
     }
 
     /**
@@ -51,63 +63,39 @@ class ContactMakeCommand extends Command
      */
     public function handle()
     {
-        $this->makeConfig();
-        $this->exportModels();
+        if (! $this->option('menu')) {
+            $this->exportModels();
+            $this->makeConfig();
+        }
+        $this->makeMenu();
     }
 
-    protected function makeConfig()
+    protected function makeMenu()
     {
-        $config = siteconf()->get('contact-page');
-        if (!empty($config)) {
-            if (! $this->confirm("Contact page config already exists. Replace it?")) {
-                return;
-            }
+        try {
+            $menu = Menu::where('key', 'admin')->firstOrFail();
+        }
+        catch (\Exception $e) {
+            $this->error("Admin menu not found");
         }
 
-        siteconf()->save("contact-page", [
-            'customTheme' => null,
-            'path' => 'contacts',
-            'yandexApi' => env("YANDEX_MAP_KEY", ""),
-            'useOwnAdminRoutes' => false,
-            'useOwnSiteRoutes' => false,
-        ]);
+        $title = "Контакты";
+        $itemData = [
+            'title' => $title,
+            'route' => "admin.contact.index",
+            'url' => '#',
+            'class' => "@far fa-address-card",
+            'menu_id' => $menu->id,
+        ];
 
-        $this->info("Config added to siteconfig");
-    }
-
-    /**
-     * Create models files.
-     */
-    protected function exportModels()
-    {
-        foreach ($this->models as $key => $model) {
-            if (file_exists(app_path($model))) {
-                if (!$this->confirm("The [{$model}] model already exists. Do you want to replace it?")) {
-                    continue;
-                }
-            }
-
-            file_put_contents(
-                app_path($model),
-                $this->compileModetStub($key)
-            );
-
-            $this->info("Model [{$model}] generated successfully.");
+        try {
+            $menuItem = MenuItem::where('title', $title)->firstOrFail();
+            $menuItem->update($itemData);
+            $this->info("Элемент меню '$title' обновлен");
         }
-    }
-
-    /**
-     * Replace namespace in model.
-     *
-     * @param $model
-     * @return mixed
-     */
-    protected function compileModetStub($model)
-    {
-        return str_replace(
-            '{{namespace}}',
-            $this->namespace,
-            file_get_contents(__DIR__ . "/stubs/make/models/$model")
-        );
+        catch (\Exception $e) {
+            $menuItem = MenuItem::create($itemData);
+            $this->info("Элемент меню '$title' создан");
+        }
     }
 }
