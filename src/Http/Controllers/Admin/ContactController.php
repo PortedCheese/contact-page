@@ -159,7 +159,19 @@ class ContactController extends Controller
                     'success' => false,
                 ]);
         }
-        $contact->work_time = $data['days'];
+        $empty = true;
+        foreach ($data['days'] as $day) {
+            if (!empty($day['workTime']) || !empty($day['dinerTime'])) {
+                $empty = false;
+                break;
+            }
+        }
+        if ($empty) {
+            $contact->work_time = NULL;
+        }
+        else {
+            $contact->work_time = $data['days'];
+        }
         $contact->save();
         return response()
             ->json([

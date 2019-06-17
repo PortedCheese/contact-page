@@ -39,7 +39,6 @@ class Contact extends Model
                     'name' => self::DAYS[$i],
                     'number' => $i,
                     'holliday' => $i > 4,
-                    'empty' => true,
                 ];
             }
         }

@@ -30,7 +30,7 @@ class ContactController extends Controller
             }
             $contacts[] = (object) [
                 'model' => $item,
-                'days' => $item->work_times,
+                'days' => empty($item->work_time) ? [] : $item->work_times,
                 'socials' => !empty($links['socials']) ? $links['socials'] : false,
                 'webs' => !empty($links['webs']) ? $links['webs'] : false,
                 'emails' => !empty($links['emails']) ? $links['emails'] : false,
