@@ -1,34 +1,35 @@
 <form action="{{ route('admin.contact.update', ['contact' => $contact]) }}"
-      method="post"
-      class="form-inline">
+      method="post">
     @csrf
     @method('put')
 
-    <label class="sr-only mb-2"
-           for="title">
-        Заголовок
-    </label>
-    <input type="text"
-           class="form-control mb-2 mr-sm-2{{ $errors->has('title') ? ' is-invalid' : '' }}"
-           id="title"
-           name="title"
-           value="{{ old('title') ? old('title') : $contact->title }}"
-           required
-           placeholder="Заголовок">
+    <div class="form-group">
+        <label for="title">
+            Заголовок
+        </label>
+        <input type="text"
+               class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+               id="title"
+               name="title"
+               value="{{ old('title') ? old('title') : $contact->title }}"
+               required
+               placeholder="Заголовок">
+    </div>
 
-    <label class="sr-only mb-2"
-           for="title">
-        Описание
-    </label>
-    <input type="text"
-           class="form-control mb-2 mr-sm-2{{ $errors->has('description') ? ' is-invalid' : '' }}"
-           id="description"
-           name="description"
-           value="{{ old('description') ? old('description') : $contact->description }}"
-           placeholder="Описание">
+    <div class="form-group">
+        <label class="sr-only"
+               for="title">
+            Описание
+        </label>
+        <textarea name="description"
+                  id="ckDescription"
+                  cols="30"
+                  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                  rows="5">{{ old('description') ? old('description') : $contact->description }}</textarea>
+    </div>
 
     <button type="submit"
-            class="btn btn-success mb-2">
+            class="btn btn-success">
         Обновить
     </button>
 
