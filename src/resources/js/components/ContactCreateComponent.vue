@@ -42,6 +42,7 @@
                  role="tabpanel"
                  aria-labelledby="pills-map-tab">
                 <contact-map :save-coord-url="saveCoordUrl"
+                             :ico-preset="icoPreset"
                              :enter-point-coord="enterPointCoord">
                 </contact-map>
             </div>
@@ -79,12 +80,13 @@
             workTimes: Array,
             saveDaysUrl: String,
             linksData: Object,
-            saveLinksUrl: String
+            saveLinksUrl: String,
+            icoPreset: String
         },
         data() {
-          return {
+            return {
 
-          }
+            }
         },
         methods: {
 

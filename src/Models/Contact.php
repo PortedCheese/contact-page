@@ -15,6 +15,7 @@ class Contact extends Model
         'latitude',
         'longitude',
         'description',
+        'ico',
     ];
 
     protected $casts = [

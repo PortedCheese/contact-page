@@ -15,3 +15,5 @@
 `php artisan override:contact-page
     {--admin : Scaffold admin}
     {--site : Scaffold site}` - создает каонтроллеры и роуты.
+    
+CONTACT_PAGE_ZOOM_MAP - зум для карты

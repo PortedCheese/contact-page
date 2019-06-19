@@ -25,6 +25,7 @@ class ContactStoreRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'ico' => 'required',
         ];
     }
 
@@ -32,6 +33,7 @@ class ContactStoreRequest extends FormRequest
     {
         return [
             'title.required' => 'Заголовок обязателен для заполнения',
+            'ico.required' => "Ico обязательно для заполнения",
         ];
     }
 }

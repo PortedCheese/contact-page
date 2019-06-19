@@ -14,6 +14,11 @@
                value="{{ old('title') ? old('title') : $contact->title }}"
                required
                placeholder="Заголовок">
+        @if ($errors->has('ico'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('title') }}</strong>
+            </span>
+        @endif
     </div>
 
     <div class="form-group">
@@ -26,6 +31,24 @@
                   cols="30"
                   class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
                   rows="5">{{ old('description') ? old('description') : $contact->description }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="ico">Ico</label>
+        <input type="text"
+               id="ico"
+               name="ico"
+               value="{{ old('ico') ? old('ico') : $contact->ico }}"
+               required
+               class="form-control{{ $errors->has('ico') ? ' is-invalid' : '' }}">
+        @if ($errors->has('ico'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('ico') }}</strong>
+            </span>
+        @endif
+        <small class="form-text text-muted">
+            <a href="https://tech.yandex.ru/maps/jsapi/doc/2.1/ref/reference/option.presetStorage-docpage/" target="_blank">Список возможных меток</a>
+        </small>
     </div>
 
     <button type="submit"

@@ -43,6 +43,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                     'coord' => [$item->longitude, $item->latitude],
                     'title' => $item->title,
                     'description' => $item->description,
+                    'ico' => $item->ico,
                 ];
             }
             $view->with("coordinates", $coordinates);

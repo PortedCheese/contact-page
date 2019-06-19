@@ -6,8 +6,8 @@
 
 @php
     $coverSize = !empty($size) ? $size : 400;
-    $mapZoom = !empty($zoom) ? $zoom : 14;
-    $icoPreset = !empty($preset) ? $preset : "islands#blueIcon";
+    $mapZoom = !empty($zoom) ? $zoom : env("CONTACT_PAGE_ZOOM_MAP", 14);
+    $icoPreset = !empty($preset) ? $preset : "noIco";
 @endphp
 
 <contact-map :enter-point-coordinates="{{ json_encode($mapCenter) }}"

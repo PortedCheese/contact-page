@@ -13,6 +13,7 @@
                         save-days-url="{{ route('admin.vue.contact.set-days', ['contact' => $contact->id]) }}"
                         :work-times="{{ json_encode($contact->work_times) }}"
                         save-links-url="{{ route('admin.vue.contact.set-links', ['contact' => $contact->id]) }}"
+                        ico-preset="{{ $contact->ico }}"
                         :links-data="{{ json_encode($contact->links_data) }}">
         </contact-create>
     </div>

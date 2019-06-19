@@ -26,11 +26,12 @@
                 // Создание меток.
                 for (let index in this.pointsInfo) {
                     let point = this.pointsInfo[index];
+                    let ico = this.icoPreset === "noIco" ? point.ico : this.icoPreset;
                     let pointObject = new ymaps.Placemark(point.coord, {
                         balloonContentHeader: point.title,
                         balloonContentBody: point.description
                     }, {
-                        preset: this.icoPreset
+                        preset: ico
                     });
 
                     this.points[point.id] = pointObject;

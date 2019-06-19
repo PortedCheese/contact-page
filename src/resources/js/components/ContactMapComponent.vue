@@ -13,7 +13,8 @@
     export default {
         props: {
             saveCoordUrl: String,
-            enterPointCoord: Array
+            enterPointCoord: Array,
+            icoPreset: String,
         },
         data() {
             return {
@@ -39,7 +40,8 @@
                         coordinates: this.enterPointCoord
                     }
                 }, {
-                    draggable: true
+                    draggable: true,
+                    preset: this.icoPreset
                 });
 
                 this.map.events.add('click', function (e) {
