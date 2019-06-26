@@ -25,7 +25,7 @@ class ContactStoreRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'ico' => 'required',
+            // 'ico' => 'required',
         ];
     }
 
