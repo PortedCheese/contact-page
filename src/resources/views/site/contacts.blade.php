@@ -2,10 +2,12 @@
     <ul class="list-unstyled">
         @foreach ($contact->phones as $phone)
             <li>
-                <i class="fas fa-phone"></i>&nbsp;<a href="tel:{{ $phone['value'] }}" class="badge badge-light">{{ $phone['value'] }}</a>
-                @isset ($phone['comment'])
-                    <small class="text-secondary">{{ $phone['comment'] }}</small>
-                @endisset
+                <h4>
+                    <i class="fas fa-phone"></i>&nbsp;<a href="tel:{{ $phone['value'] }}" class="badge badge-light">{{ $phone['value'] }}</a>
+                    @isset ($phone['comment'])
+                        <span class="text-secondary">{{ $phone['comment'] }}</span>
+                    @endisset
+                </h4>
             </li>
         @endforeach
     </ul>
@@ -15,10 +17,12 @@
     <ul class="list-unstyled">
         @foreach ($contact->emails as $email)
             <li>
-                <i class="far fa-envelope"></i>&nbsp;<a href="mailto:{{ $email['value'] }}" class="badge badge-light">{{ $email['value'] }}</a>
-                @isset ($email['comment'])
-                    <small class="text-secondary">{{ $email['comment'] }}</small>
-                @endisset
+                <h4>
+                    <i class="far fa-envelope"></i>&nbsp;<a href="mailto:{{ $email['value'] }}" class="badge badge-light">{{ $email['value'] }}</a>
+                    @isset ($email['comment'])
+                        <span class="text-secondary">{{ $email['comment'] }}</span>
+                    @endisset
+                </h4>
             </li>
         @endforeach
     </ul>
@@ -28,10 +32,12 @@
     <ul class="list-unstyled">
         @foreach ($contact->webs as $web)
             <li>
-                <i class="fas fa-globe-asia"></i>&nbsp;<a href="{{ $web['value'] }}" target="_blank" class="badge badge-light">{{ $web['humanValue'] }}</a>
-                @isset ($web['comment'])
-                    <small class="text-secondary">{{ $web['comment'] }}</small>
-                @endisset
+                <h4>
+                    <i class="fas fa-globe-asia"></i>&nbsp;<a href="{{ $web['value'] }}" target="_blank" class="badge badge-light">{{ $web['humanValue'] }}</a>
+                    @isset ($web['comment'])
+                        <span class="text-secondary">{{ $web['comment'] }}</span>
+                    @endisset
+                </h4>
             </li>
         @endforeach
     </ul>

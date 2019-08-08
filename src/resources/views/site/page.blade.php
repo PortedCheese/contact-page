@@ -16,8 +16,8 @@
                 <u>{{ $contact->model->title }}</u>
             </h4>
             <p>{!! $contact->model->description !!}</p>
-            @include("contact-page::site.days")
             @include("contact-page::site.contacts")
+            @include("contact-page::site.days")
         </div>
     @endforeach
 @endsection

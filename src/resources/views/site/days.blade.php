@@ -1,8 +1,8 @@
 @if (! empty($contact->days))
-    <ul class="list-group list-group-flush mb-3">
+    <ul class="list-group list-group-flush mt-3">
         @foreach($contact->days as $day)
             @php($day = (object) $day)
-            <li class="list-group-item{{ $day->number == $currentDay ? '' : " d-none d-md-block" }}">
+            <li class="list-group-item{{ $day->number == $currentDay - 1 ? '' : " d-none d-md-block" }}" style="background: none">
                 <span><b>{{ $day->name }}</b></span>
                 @if($day->workTime)
                     <span>{{ $day->workTime }}</span>

@@ -5,7 +5,24 @@
 
 @section('contact')
     <div class="col-12">
-        @include("contact-page::admin.edit-form")
+        <div class="card">
+            <div class="card-body">
+                @include("contact-page::admin.edit-form")
+            </div>
+            <div class="card-footer">
+                <confirm-delete-model-button model-id="{{ $contact->id }}">
+                    <template slot="delete">
+                        <form action="{{ route('admin.contact.destroy', ['contact' => $contact]) }}"
+                              id="delete-{{ $contact->id }}"
+                              class="btn-group"
+                              method="post">
+                            @csrf
+                            @method('delete')
+                        </form>
+                    </template>
+                </confirm-delete-model-button>
+            </div>
+        </div>
     </div>
     <div class="col-12 mt-2 mb-2">
         <contact-create save-coord-url="{{ route('admin.vue.contact.set-coord', ['contact' => $contact->id]) }}"
@@ -16,18 +33,5 @@
                         ico-preset="{{ $contact->ico }}"
                         :links-data="{{ json_encode($contact->links_data) }}">
         </contact-create>
-    </div>
-    <div class="col-12">
-        <confirm-delete-model-button model-id="{{ $contact->id }}">
-            <template slot="delete">
-                <form action="{{ route('admin.contact.destroy', ['contact' => $contact]) }}"
-                      id="delete-{{ $contact->id }}"
-                      class="btn-group"
-                      method="post">
-                    @csrf
-                    @method('delete')
-                </form>
-            </template>
-        </confirm-delete-model-button>
     </div>
 @endsection

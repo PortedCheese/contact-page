@@ -18,6 +18,7 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-success"
                             v-on:click="addPhone"
+                            :disabled="phone === ''"
                             type="button">
                         Добавить
                     </button>
@@ -26,6 +27,21 @@
 
             <div class="input-group mb-3" v-for="(item, index) in phones">
                 <div class="input-group-prepend">
+                    <div class="btn-group"
+                         role="group">
+                        <button type="submit"
+                                v-if="index >= 1"
+                                @click="changeOrder(phones, index, true)"
+                                class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-up"></i>
+                        </button>
+                        <button type="submit"
+                                v-if="index < phones.length - 1"
+                                @click="changeOrder(phones, index, false)"
+                                class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
                     <label class="input-group-text" :for="'phone-' + index">
                         {{ item.value }}
                     </label>
@@ -56,6 +72,7 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-success"
                             v-on:click="addEmail"
+                            :disabled="email === ''"
                             type="button">
                         Добавить
                     </button>
@@ -94,6 +111,7 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-success"
                             v-on:click="addWeb"
+                            :disabled="web === ''"
                             type="button">
                         Добавить
                     </button>
@@ -166,6 +184,7 @@
                 <div class="input-group-append">
                     <button class="btn btn-outline-success"
                             v-on:click="addSocial"
+                            :disabled="social === ''"
                             type="button">
                         Добавить
                     </button>
@@ -175,7 +194,7 @@
             <div class="input-group mb-3" v-for="(item, index) in socials">
                 <div class="input-group-prepend">
                     <label class="input-group-text" :for="'social-' + index">
-                        <i :class="item.ico"></i> {{ item.value }}
+                        <i :class="item.ico" class="pr-1"></i> {{ item.value }}
                     </label>
                 </div>
                 <input type="text"
@@ -239,6 +258,19 @@
                     .finally(() => {
                         this.loading = false;
                     });
+            },
+
+            changeOrder(target, index, direction) {
+                let tIndex = index;
+                if (direction) {
+                    tIndex--;
+                }
+                else {
+                    tIndex++;
+                }
+                let buf = target[index];
+                target[index] = target[tIndex];
+                Vue.set(target, tIndex, buf);
             },
 
             addPhone() {

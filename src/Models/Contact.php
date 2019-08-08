@@ -69,6 +69,7 @@ class Contact extends Model
      * Default value for latitude.
      *
      * @param $value
+     * @return mixed
      */
     public function getLatitudeAttribute($value)
     {
@@ -84,6 +85,7 @@ class Contact extends Model
      * Default value for longitude.
      *
      * @param $value
+     * @return mixed
      */
     public function getLongitudeAttribute($value)
     {
@@ -102,6 +104,6 @@ class Contact extends Model
      */
     public function getLimitTitleAttribute()
     {
-        return Str::limit($this->title, 10);
+        return Str::limit($this->title, 20);
     }
 }

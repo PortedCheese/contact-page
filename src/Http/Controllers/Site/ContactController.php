@@ -24,6 +24,9 @@ class ContactController extends Controller
                         if (count($exploded) == 2) {
                             $web['humanValue'] = $exploded[1];
                         }
+                        else {
+                            $web['humanValue'] = $web['value'];
+                        }
                     }
                 }
                 $links[$linkName] = $linkData;
