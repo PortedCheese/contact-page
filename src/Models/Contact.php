@@ -104,6 +104,6 @@ class Contact extends Model
      */
     public function getLimitTitleAttribute()
     {
-        return Str::limit($this->title, 20);
+        return Str::limit($this->title, 40);
     }
 }
