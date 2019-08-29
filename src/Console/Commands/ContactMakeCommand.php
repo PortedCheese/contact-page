@@ -32,6 +32,16 @@ class ContactMakeCommand extends BaseConfigModelCommand
         'Contact.stub' => 'Contact.php',
     ];
 
+    protected $controllers = [
+        "Admin" => [
+            "ContactController",
+        ],
+        "Site" => [
+            "ContactController",
+        ],
+    ];
+    protected $packageName = "ContactPage";
+
     protected $configName = "contact-page";
 
     protected $configValues = [
@@ -65,9 +75,11 @@ class ContactMakeCommand extends BaseConfigModelCommand
     {
         if (! $this->option('menu')) {
             $this->exportModels();
-            $this->makeConfig();
+            $this->exportControllers("Admin");
+            $this->exportControllers("Site");
         }
         $this->makeMenu();
+        $this->makeConfig();
     }
 
     protected function makeMenu()

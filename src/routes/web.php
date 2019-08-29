@@ -2,7 +2,7 @@
 
 if (! siteconf()->get('contact-page.useOwnAdminRoutes')) {
     Route::group([
-        'namespace' => 'PortedCheese\ContactPage\Http\Controllers\Admin',
+        'namespace' => 'App\Http\Controllers\Vendor\ContactPage\Admin',
         'middleware' => ['web', 'role:admin|editor'],
         'as' => 'admin.',
         'prefix' => 'admin',
@@ -28,7 +28,7 @@ if (! siteconf()->get('contact-page.useOwnAdminRoutes')) {
 
 if (! siteconf()->get('contact-page.useOwnSiteRoutes')) {
     Route::group([
-        'namespace' => 'PortedCheese\ContactPage\Http\Controllers\Site',
+        'namespace' => 'App\Http\Controllers\Vendor\ContactPage\Site',
         'middleware' => ['web'],
         'as' => 'site.contact.',
         'prefix' => siteconf()->get('contact-page.path'),

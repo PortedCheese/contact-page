@@ -50,12 +50,13 @@ class ContactOverrideCommand extends BaseOverrideCommand
      */
     public function handle()
     {
-        if ($this->option('admin')) {
+        $this->error("Disabled");
+        if ($this->option('admin') && false) {
             $this->createControllers("Admin");
             $this->expandSiteRoutes('admin');
         }
 
-        if ($this->option('site')) {
+        if ($this->option('site') && false) {
             $this->createControllers("Site");
             $this->expandSiteRoutes('web');
         }

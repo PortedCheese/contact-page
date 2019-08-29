@@ -12,33 +12,8 @@ class ContactController extends Controller
     public function page()
     {
         $contacts = [];
-        foreach (Contact::all() as $item) {
-            $links = [];
-            foreach ($item->links_data as $linkName => $linkData) {
-                if (empty($linkData)) {
-                    continue;
-                }
-                if ($linkName == 'webs') {
-                    foreach ($linkData as &$web) {
-                        $exploded = explode("//", $web['value']);
-                        if (count($exploded) == 2) {
-                            $web['humanValue'] = $exploded[1];
-                        }
-                        else {
-                            $web['humanValue'] = $web['value'];
-                        }
-                    }
-                }
-                $links[$linkName] = $linkData;
-            }
-            $contacts[] = (object) [
-                'model' => $item,
-                'days' => empty($item->work_time) ? [] : $item->work_times,
-                'socials' => !empty($links['socials']) ? $links['socials'] : false,
-                'webs' => !empty($links['webs']) ? $links['webs'] : false,
-                'emails' => !empty($links['emails']) ? $links['emails'] : false,
-                'phones' => !empty($links['phones']) ? $links['phones'] : false,
-            ];
+        foreach (Contact::all()->sortBy("weight") as $item) {
+            $contacts[] = $item->toRender();
         }
         return view('contact-page::site.page', [
             'contacts' => $contacts,

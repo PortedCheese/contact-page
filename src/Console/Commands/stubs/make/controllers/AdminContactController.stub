@@ -1,10 +1,11 @@
 <?php
 
-namespace {{namespace}}Http\Controllers\ContactPage\Admin;
+namespace {{namespace}}Http\Controllers\Vendor\ContactPage\Admin;
 
 use Illuminate\Http\Request;
+use PortedCheese\ContactPage\Http\Controllers\Admin\ContactController as VendorController;
 
-class ContactController extends \PortedCheese\ContactPage\Http\Controllers\Admin\ContactController
+class ContactController extends VendorController
 {
 
 }

@@ -27,7 +27,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         // Пеменные.
         view()->composer('contact-page::admin.layout', function ($view) {
-            $view->with('contacts', Contact::all());
+            $view->with('contacts', Contact::all()->sortBy("weight"));
 
             $apiKey = siteconf()->get('contact-page.yandexApi');
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
@@ -37,7 +37,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
 
             $coordinates = [];
-            foreach (Contact::all() as $item) {
+            foreach (Contact::all()->sortBy("weight") as $item) {
                 $coordinates[$item->id] = [
                     'id' => $item->id,
                     'coord' => [$item->longitude, $item->latitude],

@@ -22,6 +22,13 @@
                            name="title"
                            required
                            placeholder="Заголовок">
+                    <input type="number"
+                           class="form-control mb-2 mr-sm-2{{ $errors->has("weight") ? " is-invalid" : '' }}"
+                           name="weight"
+                           min="0"
+                           placeholder="Вес"
+                           step="1"
+                           value="{{ $contacts->count() + 1 }}">
 
                     <button type="submit"
                             class="btn btn-success mb-2">

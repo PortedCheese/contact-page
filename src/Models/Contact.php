@@ -16,6 +16,7 @@ class Contact extends Model
         'longitude',
         'description',
         'ico',
+        'weight',
     ];
 
     protected $casts = [
@@ -105,5 +106,40 @@ class Contact extends Model
     public function getLimitTitleAttribute()
     {
         return Str::limit($this->title, 40);
+    }
+
+    /**
+     * Данные для вывода на страницу.
+     *
+     * @return object
+     */
+    public function toRender()
+    {
+        $links = [];
+        foreach ($this->links_data as $linkName => $linkData) {
+            if (empty($linkData)) {
+                continue;
+            }
+            if ($linkName == 'webs') {
+                foreach ($linkData as &$web) {
+                    $exploded = explode("//", $web['value']);
+                    if (count($exploded) == 2) {
+                        $web['humanValue'] = $exploded[1];
+                    }
+                    else {
+                        $web['humanValue'] = $web['value'];
+                    }
+                }
+            }
+            $links[$linkName] = $linkData;
+        }
+        return (object) [
+            'model' => $this,
+            'days' => empty($this->work_time) ? [] : $this->work_times,
+            'socials' => !empty($links['socials']) ? $links['socials'] : false,
+            'webs' => !empty($links['webs']) ? $links['webs'] : false,
+            'emails' => !empty($links['emails']) ? $links['emails'] : false,
+            'phones' => !empty($links['phones']) ? $links['phones'] : false,
+        ];
     }
 }

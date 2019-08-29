@@ -34,6 +34,21 @@
     </div>
 
     <div class="form-group">
+        <label for="weight">Приоритет</label>
+        <input type="text"
+               id="weight"
+               name="weight"
+               value="{{ old('weight') ? old('weight') : $contact->weight }}"
+               required
+               class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}">
+        @if ($errors->has('weight'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('weight') }}</strong>
+            </span>
+        @endif
+    </div>
+
+    <div class="form-group">
         <label for="ico">Ico</label>
         <input type="text"
                id="ico"
