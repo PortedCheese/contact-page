@@ -1,10 +1,10 @@
 <template>
     <div class="contact-info-cover">
-        <button class="btn btn-outline-success mb-3 mt-3"
+        <button class="btn btn-outline-success my-3"
                 type="button"
                 v-on:click="saveContact"
                 :disabled="loading">
-            Сохранить контакты  <i class="fas fa-spinner fa-spin" v-if="loading"></i>
+            Обновить контакты  <i class="fas fa-spinner fa-spin" v-if="loading"></i>
         </button>
 
         <div class="phones">

@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group">
-        <label class="sr-only"
+        <label class=""
                for="title">
             Описание
         </label>
@@ -35,7 +35,7 @@
 
     <div class="form-group">
         <label for="weight">Приоритет</label>
-        <input type="text"
+        <input type="number"
                id="weight"
                name="weight"
                value="{{ old('weight') ? old('weight') : $contact->weight }}"

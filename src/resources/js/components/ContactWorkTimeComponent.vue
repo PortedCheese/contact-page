@@ -1,5 +1,11 @@
 <template>
     <div class="contact-work-time-cover">
+        <button class="btn btn-outline-success my-3"
+                v-on:click="saveDays"
+                :disabled="loading">
+            Обновить рабочие дни <i class="fas fa-spinner fa-spin" v-if="loading"></i>
+        </button>
+
         <dl class="row">
             <dt class="col-sm-3">#</dt>
             <dd class="col-sm-9">
@@ -52,11 +58,6 @@
                 </dd>
             </template>
         </dl>
-        <button class="btn btn-outline-success"
-                v-on:click="saveDays"
-                :disabled="loading">
-            Сохранить <i class="fas fa-spinner fa-spin" v-if="loading"></i>
-        </button>
     </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
     <div class="contact-map-cover mb-3">
-        <div id="map"></div>
-        <button class="btn btn-outline-success"
+        <button class="btn btn-outline-success my-3"
                 :disabled="loading"
                 v-on:click="savePointCoordinates">
             Обновить координаты метки <i class="fas fa-spinner fa-spin" v-if="loading"></i>
         </button>
+        <div id="map"></div>
     </div>
 </template>
 

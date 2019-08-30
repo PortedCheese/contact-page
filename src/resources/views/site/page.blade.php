@@ -11,7 +11,6 @@
     <div class="col-12">
         <div class="card-columns">
             @foreach ($contacts as $contact)
-
                     <div class="card card-base border-info">
                         <div class="card-header">
                             <h4 class="move-center"
