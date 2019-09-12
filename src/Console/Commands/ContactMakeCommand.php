@@ -52,6 +52,17 @@ class ContactMakeCommand extends BaseConfigModelCommand
         'useOwnSiteRoutes' => false,
     ];
 
+    protected $vueFolder = "contact-page";
+
+    protected $vueIncludes = [
+        'admin' => [
+            "contact-create" => "ContactCreateComponent",
+        ],
+        'app' => [
+            "contact-map" => "ContactPageMap",
+        ],
+    ];
+
     protected $dir = __DIR__;
 
     /**
@@ -75,8 +86,12 @@ class ContactMakeCommand extends BaseConfigModelCommand
     {
         if (! $this->option('menu')) {
             $this->exportModels();
+
             $this->exportControllers("Admin");
             $this->exportControllers("Site");
+
+            $this->makeVueIncludes('admin');
+            $this->makeVueIncludes('app');
         }
         $this->makeMenu();
         $this->makeConfig();
