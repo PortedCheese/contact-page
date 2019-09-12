@@ -116,7 +116,10 @@ class ContactMakeCommand extends BaseConfigModelCommand
         ];
 
         try {
-            $menuItem = MenuItem::where('title', $title)->firstOrFail();
+            $menuItem = MenuItem::query()
+                ->where('title', $title)
+                ->where("menu_id", $menu->id)
+                ->firstOrFail();
             $menuItem->update($itemData);
             $this->info("Элемент меню '$title' обновлен");
         }
