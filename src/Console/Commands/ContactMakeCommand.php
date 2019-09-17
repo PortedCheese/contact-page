@@ -111,7 +111,7 @@ class ContactMakeCommand extends BaseConfigModelCommand
             'title' => $title,
             'route' => "admin.contact.index",
             'url' => '#',
-            'class' => "@far fa-address-card",
+            'ico' => "far fa-address-card",
             'menu_id' => $menu->id,
         ];
 
