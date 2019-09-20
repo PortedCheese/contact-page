@@ -5,6 +5,7 @@ namespace PortedCheese\ContactPage\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use PortedCheese\ContactPage\Http\Requests\ContactStoreRequest;
 
 class Contact extends Model
 {
@@ -106,6 +107,27 @@ class Contact extends Model
     public function getLimitTitleAttribute()
     {
         return Str::limit($this->title, 40);
+    }
+
+    /**
+     * Валидация создания контакта.
+     *
+     * @param ContactStoreRequest $validator
+     * @param bool $attr
+     * @return array
+     */
+    public static function requestContactStore(ContactStoreRequest $validator, $attr = false)
+    {
+        if ($attr) {
+            return [
+                "title" => "Заголовок",
+            ];
+        }
+        else {
+            return [
+                'title' => 'required',
+            ];
+        }
     }
 
     /**

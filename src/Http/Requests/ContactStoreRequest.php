@@ -2,6 +2,7 @@
 
 namespace PortedCheese\ContactPage\Http\Requests;
 
+use App\Contact;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ContactStoreRequest extends FormRequest
@@ -23,17 +24,11 @@ class ContactStoreRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required',
-            // 'ico' => 'required',
-        ];
+        return Contact::requestContactStore($this);
     }
 
-    public function messages()
+    public function attributes()
     {
-        return [
-            'title.required' => 'Заголовок обязателен для заполнения',
-            'ico.required' => "Ico обязательно для заполнения",
-        ];
+        return Contact::requestContactStore($this, true);
     }
 }

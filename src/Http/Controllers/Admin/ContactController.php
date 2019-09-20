@@ -5,7 +5,6 @@ namespace PortedCheese\ContactPage\Http\Controllers\Admin;
 use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use PortedCheese\ContactPage\Http\Requests\ContactStoreRequest;
 
 class ContactController extends Controller
