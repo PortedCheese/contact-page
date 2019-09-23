@@ -1,39 +1,14 @@
 <?php
 
-if (! siteconf()->get('contact-page.useOwnAdminRoutes')) {
-    Route::group([
-        'namespace' => 'App\Http\Controllers\Vendor\ContactPage\Admin',
-        'middleware' => ['web', 'role:admin|editor'],
-        'as' => 'admin.',
-        'prefix' => 'admin',
-    ], function () {
-        Route::put('contact/settings', 'ContactController@saveSettings')
-            ->name('contact.save-settings');
-        Route::resource('contact', 'ContactController')->except([
-            'create', 'edit'
-        ]);
-        Route::group([
-            'as' => 'vue.contact.',
-            'prefix' => 'vue/contact/{contact}',
-        ], function () {
-            Route::post('coord', 'ContactController@setCoord')
-                ->name('set-coord');
-            Route::post('days', 'ContactController@setDays')
-                ->name('set-days');
-            Route::post('links', 'ContactController@setLinks')
-                ->name('set-links');
-        });
-    });
-}
+use Illuminate\Support\Facades\Route;
 
-if (! siteconf()->get('contact-page.useOwnSiteRoutes')) {
-    Route::group([
-        'namespace' => 'App\Http\Controllers\Vendor\ContactPage\Site',
-        'middleware' => ['web'],
-        'as' => 'site.contact.',
-        'prefix' => siteconf()->get('contact-page.path'),
-    ], function () {
-        Route::get('/', 'ContactController@page')
+Route::group([
+    'namespace' => 'App\Http\Controllers\Vendor\ContactPage\Site',
+    'middleware' => ['web'],
+    'as' => 'site.contact.',
+], function () {
+    if (! empty(siteconf()->get("contact-page", "path"))) {
+        Route::get(siteconf()->get("contact-page", "path"), 'ContactController@page')
             ->name('page');
-    });
-}
+    }
+});

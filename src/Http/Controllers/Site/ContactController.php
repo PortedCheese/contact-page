@@ -18,7 +18,6 @@ class ContactController extends Controller
         return view('contact-page::site.page', [
             'contacts' => $contacts,
             'currentDay' => date('w', time()),
-            'customTheme' => siteconf()->get('contact-page.customTheme'),
             'pageMetas' => Meta::getByPageKey('contacts'),
         ]);
     }

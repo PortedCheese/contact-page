@@ -4,7 +4,6 @@ namespace PortedCheese\ContactPage;
 
 use App\Contact;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
-use PortedCheese\ContactPage\Console\Commands\ContactOverrideCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -21,6 +20,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         // Подключить роуты.
         $this->loadRoutesFrom(__DIR__ . "/routes/web.php");
+        $this->loadRoutesFrom(__DIR__ . "/routes/admin.php");
 
         // Подключаем шаблоны.
         $this->loadViewsFrom(__DIR__ . "/resources/views", "contact-page");
@@ -54,7 +54,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 ContactMakeCommand::class,
-                ContactOverrideCommand::class
             ]);
         }
     }

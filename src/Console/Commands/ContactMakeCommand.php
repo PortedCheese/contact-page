@@ -15,7 +15,12 @@ class ContactMakeCommand extends BaseConfigModelCommand
      * @var string
      */
     protected $signature = 'make:contact-page
-                                {--menu : Only config menu}';
+                                {--all : Run all}
+                                {--menu : Config menu}
+                                {--models : Export models}
+                                {--controllers : Export controllers}
+                                {--vue : Export vue}
+                                {--config : Make config}';
 
     /**
      * The console command description.
@@ -24,13 +29,13 @@ class ContactMakeCommand extends BaseConfigModelCommand
      */
     protected $description = 'Create contact config';
 
+    protected $packageName = "ContactPage";
+
     /**
      * The models that need to be exported.
      * @var array
      */
-    protected $models = [
-        'Contact.stub' => 'Contact.php',
-    ];
+    protected $models = ['Contact'];
 
     protected $controllers = [
         "Admin" => [
@@ -40,16 +45,16 @@ class ContactMakeCommand extends BaseConfigModelCommand
             "ContactController",
         ],
     ];
-    protected $packageName = "ContactPage";
 
     protected $configName = "contact-page";
 
+    protected $configTitle = "Контакты";
+
+    protected $configTemplate = "contact-page::admin.settings";
+
     protected $configValues = [
-        'customTheme' => null,
         'path' => 'contacts',
-        'yandexApi' => null,
-        'useOwnAdminRoutes' => false,
-        'useOwnSiteRoutes' => false,
+        'yandexApi' => false,
     ];
 
     protected $vueFolder = "contact-page";
@@ -79,22 +84,32 @@ class ContactMakeCommand extends BaseConfigModelCommand
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        if (! $this->option('menu')) {
-            $this->exportModels();
+        $all = $this->option("all");
 
+        if ($this->option("menu") || $all) {
+            $this->makeMenu();
+        }
+
+        if ($this->option("models") || $all) {
+            $this->exportModels();
+        }
+
+        if ($this->option("controllers") || $all) {
             $this->exportControllers("Admin");
             $this->exportControllers("Site");
+        }
 
+        if ($this->option("vue") || $all) {
             $this->makeVueIncludes('admin');
             $this->makeVueIncludes('app');
         }
-        $this->makeMenu();
-        $this->makeConfig();
+
+        if ($this->option("config") || $all) {
+            $this->makeConfig();
+        }
     }
 
     protected function makeMenu()
