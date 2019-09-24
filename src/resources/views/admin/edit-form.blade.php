@@ -66,10 +66,13 @@
         </small>
     </div>
 
-    <button type="submit"
-            class="btn btn-success">
-        Обновить
-    </button>
+    <div class="btn-group"
+         role="group">
+        <button type="submit" class="btn btn-success">Обновить</button>
+        <button type="button" class="btn btn-danger" data-confirm="{{ "delete-contact-form-{$contact->id}" }}">
+            Удалить
+        </button>
+    </div>
 
     @if ($errors->has('title'))
         <span class="invalid-feedback" role="alert">
@@ -77,3 +80,14 @@
         </span>
     @endif
 </form>
+<confirm-form :id="'{{ "delete-contact-form-{$contact->id}" }}'">
+    <template>
+        <form action="{{ route('admin.contact.destroy', ['contact' => $contact]) }}"
+              id="delete-contact-form-{{ $contact->id }}"
+              class="btn-group"
+              method="post">
+            @csrf
+            <input type="hidden" name="_method" value="DELETE">
+        </form>
+    </template>
+</confirm-form>

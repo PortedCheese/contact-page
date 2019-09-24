@@ -48,11 +48,6 @@
         <div class="card">
             <div class="card-body">
                 <div class="list-group">
-                    @role('admin')
-                    <a href="{{ route('admin.contact.index') }}" class="list-group-item list-group-item-action{{ $currentRoute == 'admin.contact.index' ? ' active' : '' }}">
-                        Настройки
-                    </a>
-                    @endrole
                     @foreach ($contacts as $item)
                         <a class="list-group-item list-group-item-action{{ !empty($contact) && $contact->id == $item->id ? ' active' : '' }}"
                            href="{{ route('admin.contact.show', ['contact' => $item]) }}">
