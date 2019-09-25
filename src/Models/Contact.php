@@ -110,6 +110,44 @@ class Contact extends Model
     }
 
     /**
+     * Сгруппированные рабочие дни.
+     *
+     * @return array
+     */
+    public function getDaysGroupsAttribute()
+    {
+        $groups = [];
+        if (! empty($this->work_time)) {
+            $start = false;
+            $time = false;
+            $prev = false;
+            foreach ($this->work_time as $day) {
+                if (! $start) {
+                    $start = $day['name'];
+                    $time = $day['workTime'];
+                }
+                if ($day['workTime'] == $time) {
+                    $prev = $day['name'];
+                    continue;
+                }
+                $groups[] = [
+                    'start' => $start,
+                    'end' => $prev,
+                    'time' => $time,
+                ];
+                $time = $day['workTime'];
+                $prev = $start = $day['name'];
+            }
+            $groups[] = [
+                'start' => $start,
+                'end' => $prev,
+                'time' => $time,
+            ];
+        }
+        return $groups;
+    }
+
+    /**
      * Валидация создания контакта.
      *
      * @param ContactStoreRequest $validator
@@ -155,9 +193,11 @@ class Contact extends Model
             }
             $links[$linkName] = $linkData;
         }
+
         return (object) [
             'model' => $this,
             'days' => empty($this->work_time) ? [] : $this->work_times,
+            'daysGrouped' => $this->days_groups,
             'socials' => !empty($links['socials']) ? $links['socials'] : false,
             'webs' => !empty($links['webs']) ? $links['webs'] : false,
             'emails' => !empty($links['emails']) ? $links['emails'] : false,
