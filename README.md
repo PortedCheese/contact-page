@@ -10,10 +10,11 @@
 
 `php artisan vendor:publish --provider="PortedCheese\ContactPage\ServiceProvider" --tag=public --force` - компоненты VueJs.
 
-`php artisan make:contact-page` - добавит конфиг и модели для контактов.
-
-`php artisan override:contact-page
-    {--admin : Scaffold admin}
-    {--site : Scaffold site}` - создает каонтроллеры и роуты.
+`php artisan make:contact-page {--all : Run all}
+                               {--menu : Config menu}
+                               {--models : Export models}
+                               {--controllers : Export controllers}
+                               {--vue : Export vue}
+                               {--config : Make config}`
     
 CONTACT_PAGE_ZOOM_MAP - зум для карты

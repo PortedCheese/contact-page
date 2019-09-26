@@ -29,11 +29,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         view()->composer('contact-page::admin.layout', function ($view) {
             $view->with('contacts', Contact::all()->sortBy("weight"));
 
-            $apiKey = siteconf()->get('contact-page.yandexApi');
+            $apiKey = siteconf()->get('contact-page', "yandexApi");
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
         });
         view()->composer("contact-page::site.map", function ($view) {
-            $apiKey = siteconf()->get('contact-page.yandexApi');
+            $apiKey = siteconf()->get('contact-page', "yandexApi");
             $view->with('apiKey', empty($apiKey) ? env("YANDEX_MAP_KEY") : $apiKey);
 
             $coordinates = [];
