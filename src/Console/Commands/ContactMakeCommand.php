@@ -55,6 +55,9 @@ class ContactMakeCommand extends BaseConfigModelCommand
     protected $configValues = [
         'path' => 'contacts',
         'yandexApi' => false,
+        "latitude" => "39.90092731952594",
+        "longitude" => "59.21567389811249",
+        "zoom" => 14,
     ];
 
     protected $vueFolder = "contact-page";

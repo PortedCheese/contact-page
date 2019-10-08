@@ -6,7 +6,7 @@
 
 @php
     $coverSize = !empty($size) ? $size : 400;
-    $mapZoom = !empty($zoom) ? $zoom : env("CONTACT_PAGE_ZOOM_MAP", 14);
+    $mapZoom = !empty($zoom) ? $zoom : siteconf()->get("contact-page", "zoom");
     $icoPreset = !empty($preset) ? $preset : "noIco";
 @endphp
 

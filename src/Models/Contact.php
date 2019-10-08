@@ -76,7 +76,7 @@ class Contact extends Model
     public function getLatitudeAttribute($value)
     {
         if (empty($value)) {
-            return env('CONTACT_LATITUDE', 39.89);
+            return (float) siteconf()->get("contact-page", "latitude");
         }
         else {
             return $value;
@@ -92,7 +92,7 @@ class Contact extends Model
     public function getLongitudeAttribute($value)
     {
         if (empty($value)) {
-            return env('CONTACT_LONGITUDE', 59.22);
+            return (float) siteconf()->get("contact-page", "longitude");
         }
         else {
             return $value;
