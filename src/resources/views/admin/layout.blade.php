@@ -22,13 +22,6 @@
                            name="title"
                            required
                            placeholder="Заголовок">
-                    <input type="number"
-                           class="form-control mb-2 mr-sm-2{{ $errors->has("weight") ? " is-invalid" : '' }}"
-                           name="weight"
-                           min="0"
-                           placeholder="Вес"
-                           step="1"
-                           value="{{ $contacts->count() + 1 }}">
 
                     <button type="submit"
                             class="btn btn-success mb-2">
@@ -47,13 +40,18 @@
     <div class="col-12 col-md-4 mb-2">
         <div class="card">
             <div class="card-body">
+                <universal-priority :url="'{{ route("admin.vue.priority", ['table' => "contacts", "field" => "weight"]) }}'"
+                                    :elements="{{ json_encode($contacts) }}">
+                </universal-priority>
                 <div class="list-group">
+                    {{--
                     @foreach ($contacts as $item)
                         <a class="list-group-item list-group-item-action{{ !empty($contact) && $contact->id == $item->id ? ' active' : '' }}"
                            href="{{ route('admin.contact.show', ['contact' => $item]) }}">
                             {{ $item->limit_title }}
                         </a>
                     @endforeach
+                    --}}
                 </div>
             </div>
         </div>

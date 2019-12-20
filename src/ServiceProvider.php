@@ -27,7 +27,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         // Пеменные.
         view()->composer('contact-page::admin.layout', function ($view) {
-            $view->with('contacts', Contact::all()->sortBy("weight"));
+            $collection = Contact::query()
+                ->select("id", "title")
+                ->orderBy("weight")
+                ->get();
+            $contacts = [];
+            foreach ($collection as $item) {
+                $contacts[] = [
+                    "id" => $item->id,
+                    "name" => $item->title,
+                    "url" => route("admin.contact.show", ['contact' => $item]),
+                ];
+            }
+            $view->with('contacts', $contacts);
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
         });
         view()->composer("contact-page::site.map", function ($view) {

@@ -5,7 +5,7 @@ namespace PortedCheese\ContactPage\Http\Controllers\Admin;
 use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use PortedCheese\ContactPage\Http\Requests\ContactStoreRequest;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -24,54 +24,27 @@ class ContactController extends Controller
         ]);
     }
 
-    public function saveSettings(Request $request)
-    {
-        $config = siteconf()->get('contact-page');
-        foreach ($config as $key => $value) {
-            if ($request->has($key)) {
-                $config[$key] = $request->get($key);
-            }
-        }
-
-        if ($request->has('theme')) {
-            $config['customTheme'] = $request->get('theme');
-        }
-        else {
-            $config['customTheme'] = null;
-        }
-
-        if ($request->has('own-admin')) {
-            $config['useOwnAdminRoutes'] = true;
-        }
-        else {
-            $config['useOwnAdminRoutes'] = false;
-        }
-
-        if ($request->has('own-site')) {
-            $config['useOwnSiteRoutes'] = true;
-        }
-        else {
-            $config['useOwnSiteRoutes'] = false;
-        }
-
-        siteconf()->save('contact-page', $config);
-        return redirect()
-            ->back()
-            ->with('success', "Конфигурация обновлена");
-    }
-
     /**
      * Сохранение контакта.
      *
-     * @param ContactStoreRequest $request
+     * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ContactStoreRequest $request)
+    public function store(Request $request)
     {
+        $this->storeValidator($request->all());
         $contact = Contact::create($request->all());
         return redirect()
             ->route('admin.contact.show', ['contact' => $contact])
             ->with('success', 'Контакт добавлен');
+    }
+
+    protected function storeValidator(array $data) {
+        Validator::make($data, [
+            "title" => ["required", "max:50"],
+        ], [], [
+            "title" => "Заголовок",
+        ]);
     }
 
     /**
@@ -90,16 +63,26 @@ class ContactController extends Controller
     /**
      * Обновление заголовка.
      *
-     * @param ContactStoreRequest $request
+     * @param Request $request
      * @param Contact $contact
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ContactStoreRequest $request, Contact $contact)
+    public function update(Request $request, Contact $contact)
     {
+        $this->updateValidator($request->all(), $contact);
         $contact->update($request->all());
         return redirect()
             ->back()
             ->with('success', 'Успешно обновлено');
+    }
+
+    protected function updateValidator(array $data, Contact $contact)
+    {
+        Validator::make($data, [
+            "title" => ["required", "max:50"],
+        ], [], [
+            "title" => "Заголовок",
+        ]);
     }
 
     /**
@@ -200,5 +183,41 @@ class ContactController extends Controller
             ->json([
                 'success' => true,
             ]);
+    }
+
+    public function saveSettings(Request $request)
+    {
+        $config = siteconf()->get('contact-page');
+        foreach ($config as $key => $value) {
+            if ($request->has($key)) {
+                $config[$key] = $request->get($key);
+            }
+        }
+
+        if ($request->has('theme')) {
+            $config['customTheme'] = $request->get('theme');
+        }
+        else {
+            $config['customTheme'] = null;
+        }
+
+        if ($request->has('own-admin')) {
+            $config['useOwnAdminRoutes'] = true;
+        }
+        else {
+            $config['useOwnAdminRoutes'] = false;
+        }
+
+        if ($request->has('own-site')) {
+            $config['useOwnSiteRoutes'] = true;
+        }
+        else {
+            $config['useOwnSiteRoutes'] = false;
+        }
+
+        siteconf()->save('contact-page', $config);
+        return redirect()
+            ->back()
+            ->with('success', "Конфигурация обновлена");
     }
 }

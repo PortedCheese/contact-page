@@ -42,7 +42,7 @@
                             <i class="fas fa-arrow-down"></i>
                         </button>
                     </div>
-                    <label class="input-group-text" :for="'phone-' + index">
+                    <label class="input-group-text mb-0" :for="'phone-' + index">
                         {{ item.value }}
                     </label>
                 </div>

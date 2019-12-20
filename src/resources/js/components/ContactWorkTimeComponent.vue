@@ -6,12 +6,20 @@
             Обновить рабочие дни <i class="fas fa-spinner fa-spin" v-if="loading"></i>
         </button>
 
-        <dl class="row">
-            <dt class="col-sm-3">#</dt>
-            <dd class="col-sm-9">
-                <dl class="row">
-                    <dd class="col-sm-6">
-                        <div class="btn-group"
+        <div class="table-responsive">
+            <table class="table table-borderless">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th class="text-center">Рабочее время</th>
+                    <th class="text-center">Обед</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Копирование</th>
+                    <td>
+                        <div class="btn-group btn-block"
                              role="group">
                             <button type="button"
                                     v-on:click="copyWork(false)"
@@ -24,9 +32,9 @@
                                 Все
                             </button>
                         </div>
-                    </dd>
-                    <dd class="col-sm-6">
-                        <div class="btn-group"
+                    </td>
+                    <td>
+                        <div class="btn-group btn-block"
                              role="group">
                             <button type="button"
                                     v-on:click="copyDiner(false)"
@@ -39,25 +47,20 @@
                                 Все
                             </button>
                         </div>
-                    </dd>
-                </dl>
-            </dd>
-            <template v-for="day in days">
-                <dt class="col-sm-3">
-                    {{ day.name }}
-                </dt>
-                <dd class="col-sm-9">
-                    <dl class="row">
-                        <dd class="col-sm-6">
-                            <input type="text" v-model="day.workTime">
-                        </dd>
-                        <dd class="col-sm-6">
-                            <input type="text" v-model="day.dinerTime">
-                        </dd>
-                    </dl>
-                </dd>
-            </template>
-        </dl>
+                    </td>
+                </tr>
+                <tr v-for="day in days">
+                    <th>{{ day.name }}</th>
+                    <td>
+                        <input class="form-control" type="text" v-model="day.workTime">
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" v-model="day.dinerTime">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
