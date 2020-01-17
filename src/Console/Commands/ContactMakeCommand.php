@@ -19,6 +19,7 @@ class ContactMakeCommand extends BaseConfigModelCommand
                                 {--menu : Config menu}
                                 {--models : Export models}
                                 {--controllers : Export controllers}
+                                {--policies : Export and create rules}
                                 {--vue : Export vue}
                                 {--config : Make config}';
 
@@ -47,11 +48,8 @@ class ContactMakeCommand extends BaseConfigModelCommand
     ];
 
     protected $configName = "contact-page";
-
     protected $configTitle = "Контакты";
-
     protected $configTemplate = "contact-page::admin.settings";
-
     protected $configValues = [
         'path' => 'contacts',
         'yandexApi' => false,
@@ -61,7 +59,6 @@ class ContactMakeCommand extends BaseConfigModelCommand
     ];
 
     protected $vueFolder = "contact-page";
-
     protected $vueIncludes = [
         'admin' => [
             "contact-create" => "ContactCreateComponent",
@@ -72,6 +69,14 @@ class ContactMakeCommand extends BaseConfigModelCommand
     ];
 
     protected $dir = __DIR__;
+
+    protected $ruleRules = [
+        [
+            "title" => "Контакты",
+            "slug" => "contact",
+            "policy" => "ContactPolicy",
+        ],
+    ];
 
     /**
      * Create a new command instance.
@@ -113,6 +118,10 @@ class ContactMakeCommand extends BaseConfigModelCommand
         if ($this->option("config") || $all) {
             $this->makeConfig();
         }
+
+        if ($this->option("policies") || $all) {
+            $this->makeRules();
+        }
     }
 
     protected function makeMenu()
@@ -127,7 +136,8 @@ class ContactMakeCommand extends BaseConfigModelCommand
         $title = "Контакты";
         $itemData = [
             'title' => $title,
-            'route' => "admin.contact.index",
+            'route' => "",
+            'template' => "contact-page::admin.menu",
             'url' => '#',
             'ico' => "far fa-address-card",
             'menu_id' => $menu->id,

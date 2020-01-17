@@ -23,6 +23,18 @@ class Contact extends Model
         'links' => 'array',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function (\App\Contact $contact) {
+            $max = \App\Contact::query()
+                ->select("weight")
+                ->max("weight");
+            $contact->weight = $max + 1;
+        });
+    }
+
     /**
      * Время работы со значением по умолчанию.
      *

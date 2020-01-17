@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->authorizeResource(Contact::class, "contact");
+    }
+
     /**
      * Список.
      *
@@ -16,12 +22,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $config = siteconf()->get('contact-page');
-        $themes = config('theme.themes');
-        return view("contact-page::admin.index", [
-            'config' => (object) $config,
-            'themes' => $themes,
-        ]);
+        return view("contact-page::admin.index");
     }
 
     /**
@@ -39,6 +40,11 @@ class ContactController extends Controller
             ->with('success', 'Контакт добавлен');
     }
 
+    /**
+     * Валидация сохранения.
+     *
+     * @param array $data
+     */
     protected function storeValidator(array $data) {
         Validator::make($data, [
             "title" => ["required", "max:50"],

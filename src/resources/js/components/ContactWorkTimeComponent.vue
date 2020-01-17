@@ -75,7 +75,6 @@
         },
         methods: {
             saveDays() {
-                console.log(this.days);
                 this.loading = true;
                 axios
                     .post(this.saveDaysUrl, {

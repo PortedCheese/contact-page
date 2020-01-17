@@ -40,6 +40,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 ];
             }
             $view->with('contacts', $contacts);
+            $view->with("collection", $collection);
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
         });
         view()->composer("contact-page::site.map", function ($view) {

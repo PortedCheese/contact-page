@@ -23,7 +23,7 @@
 
     <div class="form-group">
         <label class=""
-               for="title">
+               for="ckDescription">
             Описание
         </label>
         <textarea name="description"
@@ -54,9 +54,11 @@
     <div class="btn-group"
          role="group">
         <button type="submit" class="btn btn-success">Обновить</button>
-        <button type="button" class="btn btn-danger" data-confirm="{{ "delete-contact-form-{$contact->id}" }}">
-            Удалить
-        </button>
+        @can("delete", \App\Contact::class)
+            <button type="button" class="btn btn-danger" data-confirm="{{ "delete-contact-form-{$contact->id}" }}">
+                Удалить
+            </button>
+        @endcan
     </div>
 
     @if ($errors->has('title'))
@@ -65,14 +67,17 @@
         </span>
     @endif
 </form>
-<confirm-form :id="'{{ "delete-contact-form-{$contact->id}" }}'">
-    <template>
-        <form action="{{ route('admin.contact.destroy', ['contact' => $contact]) }}"
-              id="delete-contact-form-{{ $contact->id }}"
-              class="btn-group"
-              method="post">
-            @csrf
-            <input type="hidden" name="_method" value="DELETE">
-        </form>
-    </template>
-</confirm-form>
+
+@can("delete", \App\Contact::class)
+    <confirm-form :id="'{{ "delete-contact-form-{$contact->id}" }}'">
+        <template>
+            <form action="{{ route('admin.contact.destroy', ['contact' => $contact]) }}"
+                  id="delete-contact-form-{{ $contact->id }}"
+                  class="btn-group"
+                  method="post">
+                @csrf
+                <input type="hidden" name="_method" value="DELETE">
+            </form>
+        </template>
+    </confirm-form>
+@endcan
