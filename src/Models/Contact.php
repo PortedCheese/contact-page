@@ -46,7 +46,7 @@ class Contact extends Model
 
         $id = request("point", false);
         try {
-            $contact = self::query()->firstOrFail($id);
+            $contact = \App\Contact::query()->findOrFail($id);
             $contacts[] = $contact;
         }
         catch (\Exception $exception) {
@@ -57,7 +57,11 @@ class Contact extends Model
         if ($id) {
             $collection->whereNotIn("id", [$id]);
         }
-        return $collection->orderBy("weight")->get();
+        $items = $collection->orderBy("weight")->get();
+        foreach ($items as $item) {
+            $contacts[] = $item;
+        }
+        return $contacts;
     }
 
     /**

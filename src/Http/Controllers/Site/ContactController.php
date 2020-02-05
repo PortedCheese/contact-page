@@ -9,10 +9,10 @@ use PortedCheese\SeoIntegration\Models\Meta;
 
 class ContactController extends Controller
 {
-    public function page()
+    public function page(Request $request)
     {
         $contacts = [];
-        foreach (Contact::all()->sortBy("weight") as $item) {
+        foreach (Contact::getForPage() as $item) {
             $contacts[] = $item->toRender();
         }
         return view('contact-page::site.page', [
