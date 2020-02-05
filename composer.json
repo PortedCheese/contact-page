@@ -3,7 +3,7 @@
     "description": "Contact page for site",
     "type": "library",
     "require": {
-        "portedcheese/base-settings": "^v1.3",
+        "portedcheese/base-settings": "^v1.4",
         "portedcheese/seo-integration": "^v1.0"
     },
     "license": "MIT",
