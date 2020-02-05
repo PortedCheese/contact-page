@@ -36,6 +36,31 @@ class Contact extends Model
     }
 
     /**
+     * Получить список контактов.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public static function getForPage()
+    {
+        $contacts = [];
+
+        $id = request("point", false);
+        try {
+            $contact = self::query()->firstOrFail($id);
+            $contacts[] = $contact;
+        }
+        catch (\Exception $exception) {
+            $id = false;
+        }
+
+        $collection = self::query();
+        if ($id) {
+            $collection->whereNotIn("id", [$id]);
+        }
+        return $collection->orderBy("weight")->get();
+    }
+
+    /**
      * Время работы со значением по умолчанию.
      *
      * @return array|mixed

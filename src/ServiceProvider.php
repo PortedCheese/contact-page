@@ -10,6 +10,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
+        $this->extendBlade();
+
         // Assets.
         $this->publishes([
             __DIR__ . '/resources/js/components' => resource_path('js/components/vendor/contact-page'),
@@ -25,12 +27,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         // Подключаем шаблоны.
         $this->loadViewsFrom(__DIR__ . "/resources/views", "contact-page");
 
+        // Console.
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ContactMakeCommand::class,
+            ]);
+        }
+    }
+
+    private function extendBlade()
+    {
+        $collection = Contact::getForPage();
         // Пеменные.
-        view()->composer('contact-page::admin.layout', function ($view) {
-            $collection = Contact::query()
-                ->select("id", "title")
-                ->orderBy("weight")
-                ->get();
+        view()->composer('contact-page::admin.layout', function ($view) use ($collection) {
             $contacts = [];
             foreach ($collection as $item) {
                 $contacts[] = [
@@ -43,11 +52,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $view->with("collection", $collection);
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
         });
-        view()->composer("contact-page::site.map", function ($view) {
+
+        view()->composer("contact-page::site.map", function ($view) use ($collection) {
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
 
             $coordinates = [];
-            foreach (Contact::all()->sortBy("weight") as $item) {
+            foreach ($collection as $item) {
                 $coordinates[$item->id] = [
                     'id' => $item->id,
                     'coord' => [$item->longitude, $item->latitude],
@@ -59,13 +69,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $view->with("coordinates", $coordinates);
             $view->with("mapCenter", !empty($coordinates) ? reset($coordinates)['coord'] : []);
         });
-
-        // Console.
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ContactMakeCommand::class,
-            ]);
-        }
     }
 
     public function register()
