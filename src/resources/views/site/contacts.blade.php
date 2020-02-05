@@ -2,12 +2,11 @@
     <ul class="list-unstyled">
         @foreach ($contact->phones as $phone)
             <li>
-                <h4>
-                    <i class="fas fa-phone"></i>&nbsp;<a href="tel:{{ $phone['value'] }}" class="badge badge-light">{{ $phone['value'] }}</a>
-                    @isset ($phone['comment'])
-                        <small class="text-secondary">{{ $phone['comment'] }}</small>
-                    @endisset
-                </h4>
+                @isset ($phone['comment'])
+                    <small class="text-muted">{{ $phone['comment'] }}</small>
+                    <br>
+                @endisset
+                <a href="tel:{{ $phone['value'] }}" class="contact-teaser__link">{{ $phone['value'] }}</a>
             </li>
         @endforeach
     </ul>
@@ -17,12 +16,11 @@
     <ul class="list-unstyled">
         @foreach ($contact->emails as $email)
             <li>
-                <h4>
-                    <i class="far fa-envelope"></i>&nbsp;<a href="mailto:{{ $email['value'] }}" class="badge badge-light">{{ $email['value'] }}</a>
-                    @isset ($email['comment'])
-                        <small class="text-secondary">{{ $email['comment'] }}</small>
-                    @endisset
-                </h4>
+                @isset ($email['comment'])
+                    <small class="text-muted">{{ $email['comment'] }}</small>
+                    <br>
+                @endisset
+                <a href="mailto:{{ $email['value'] }}" class="contact-teaser__link">{{ $email['value'] }}</a>
             </li>
         @endforeach
     </ul>
@@ -30,29 +28,28 @@
 
 @if ($contact->webs)
     <ul class="list-unstyled">
-        @foreach ($contact->webs as $web)
+        @foreach ($contact->webs as $item)
             <li>
-                <h4>
-                    <i class="fas fa-globe-asia"></i>&nbsp;<a href="{{ $web['value'] }}" target="_blank" class="badge badge-light">{{ $web['humanValue'] }}</a>
-                    @isset ($web['comment'])
-                        <small class="text-secondary">{{ $web['comment'] }}</small>
-                    @endisset
-                </h4>
+                @isset ($item['comment'])
+                    <small class="text-muted">{{ $item['comment'] }}</small>
+                    <br>
+                @endisset
+                <a href="{{ $item['value'] }}" target="_blank" class="contact-teaser__link">{{ $item['humanValue'] }}</a>
             </li>
         @endforeach
     </ul>
 @endif
 
 @if ($contact->socials)
-    <div class="row">
+    <ul class="list-inline">
         @foreach($contact->socials as $link)
-            <div class="col text-center">
+            <li class="list-inline-item text-center">
                 <a href="{{ $link['value'] }}"
                    target="_blank"
                    title="{{ $link['comment'] }}">
                     <i class="{{ $link['ico'] }} fa-2x"></i>
                 </a>
-            </div>
+            </li>
         @endforeach
-    </div>
+    </ul>
 @endif

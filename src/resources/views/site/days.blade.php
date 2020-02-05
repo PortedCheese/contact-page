@@ -1,26 +1,22 @@
-@if (! empty($contact->days))
-    <div class="card-footer">
-        <ul class="list-unstyled">
-            @foreach($contact->days as $day)
-                @php($day = (object) $day)
-                <li class="{{ $day->number == $currentDay - 1 ? '' : " d-none d-md-block" }}">
-                    <span><b>{{ $day->name }}</b></span>
-                    @if($day->workTime)
-                        <span>{{ $day->workTime }}</span>
-                        @if ($day->dinerTime)
-                            <span class="pl-2">
-                                <i class="fas fa-utensils"></i>&nbsp;<small>{{ $day->dinerTime }}</small>
-                            </span>
-                        @else
-                            <span class="pl-2">
-                                <i class="fas fa-utensils"></i>&nbsp;<small>без обеда</small>
-                            </span>
-                        @endif
+@if (count($contact->daysGrouped))
+    <ul class="list-unstyled">
+        @if (count($contact->daysGrouped) == 1)
+            <li>
+                {{ $contact->daysGrouped[0]["time"] }}
+                <br>
+                Без выходных
+            </li>
+        @else
+            @foreach ($contact->daysGrouped as $day)
+                <li class="contact-teaser__day">
+                    @if ($day["start"] != $day["end"])
+                        <small class="contact-teaser__days">{{ $day["start"] }} - {{ $day["end"] }}:</small>
                     @else
-                        <span class="text-danger">выходной</span>
+                        <small class="contact-teaser__days">{{ $day["start"] }}:</small>
                     @endif
+                    <small class="contact-teaser__time">{{ $day["time"] ? $day["time"] : "Выходной" }}</small>
                 </li>
             @endforeach
-        </ul>
-    </div>
+        @endif
+    </ul>
 @endif

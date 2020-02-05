@@ -21,6 +21,7 @@ class ContactMakeCommand extends BaseConfigModelCommand
                                 {--controllers : Export controllers}
                                 {--policies : Export and create rules}
                                 {--only-default : Create default rules}
+                                {--scss : Export scss}
                                 {--vue : Export vue}
                                 {--config : Make config}';
 
@@ -67,6 +68,10 @@ class ContactMakeCommand extends BaseConfigModelCommand
         'app' => [
             "contact-map" => "ContactPageMap",
         ],
+    ];
+
+    protected $scssIncludes = [
+        "app" => ["contact-teaser"],
     ];
 
     protected $dir = __DIR__;
@@ -122,6 +127,10 @@ class ContactMakeCommand extends BaseConfigModelCommand
 
         if ($this->option("policies") || $all) {
             $this->makeRules();
+        }
+
+        if ($this->option("scss") || $all) {
+            $this->makeScssIncludes("app");
         }
     }
 

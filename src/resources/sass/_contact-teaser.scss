@@ -1,0 +1,39 @@
+#page-map {
+  position: sticky;
+  top: 0;
+}
+.contact-teaser {
+  &__move-center {
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &__day {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  &_single {
+    margin-bottom: 1rem;
+    .contact-teaser__day {
+      @media screen and (min-width: 768px) {
+        justify-content: space-between;
+      }
+    }
+  }
+
+  &__days {
+    padding-right: 1rem;
+  }
+
+  &__link {
+    color: $body-color;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
