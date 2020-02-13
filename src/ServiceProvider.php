@@ -10,7 +10,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        $this->extendBlade();
+        if (class_exists(Contact::class)) {
+            $this->extendBlade();
+        }
 
         // Assets.
         $this->publishes([
