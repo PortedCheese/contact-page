@@ -3,6 +3,7 @@
 namespace PortedCheese\ContactPage;
 
 use App\Contact;
+use Illuminate\Support\Facades\Schema;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -10,7 +11,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        if (class_exists(Contact::class)) {
+        if (class_exists(Contact::class) && Schema::hasTable("contacts")) {
             $this->extendBlade();
         }
 
