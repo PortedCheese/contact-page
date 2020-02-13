@@ -3,6 +3,7 @@
 namespace PortedCheese\ContactPage;
 
 use App\Contact;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
 
@@ -11,8 +12,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        if (class_exists(Contact::class) && Schema::hasTable("contacts")) {
+        try {
             $this->extendBlade();
+        }
+        catch (\Exception $exception) {
+            Log::error("Contact class or table not found");
         }
 
         // Assets.
