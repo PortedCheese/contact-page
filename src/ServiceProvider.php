@@ -3,8 +3,6 @@
 namespace PortedCheese\ContactPage;
 
 use App\Contact;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Schema;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -12,12 +10,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     public function boot()
     {
-        try {
-            $this->extendBlade();
-        }
-        catch (\Exception $exception) {
-            Log::error("Contact class or table not found");
-        }
+        $this->extendBlade();
 
         // Assets.
         $this->publishes([
@@ -45,9 +38,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     private function extendBlade()
     {
-        $collection = Contact::getForPage();
         // Пеменные.
-        view()->composer('contact-page::admin.layout', function ($view) use ($collection) {
+        view()->composer('contact-page::admin.layout', function ($view) {
+            $collection = Contact::getForPage();
             $contacts = [];
             foreach ($collection as $item) {
                 $contacts[] = [
@@ -61,7 +54,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
         });
 
-        view()->composer("contact-page::site.map", function ($view) use ($collection) {
+        view()->composer("contact-page::site.map", function ($view) {
+            $collection = Contact::getForPage();
             $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
 
             $coordinates = [];
