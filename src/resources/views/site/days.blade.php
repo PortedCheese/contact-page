@@ -1,11 +1,11 @@
 @if (count($contact->daysGrouped))
     <ul class="list-unstyled">
         @if (count($contact->daysGrouped) == 1)
-            <li>
-                <small>{{ $contact->daysGrouped[0]["time"] }}</small>
+            <li class="contact-teaser__day">
+                <small class="contact-teaser__time">{{ $contact->daysGrouped[0]["time"] }}</small>
             </li>
-            <li>
-                <small>Без выходных</small>
+            <li class="contact-teaser__day">
+                <small class="contact-teaser__time">Без выходных</small>
             </li>
         @else
             @foreach ($contact->daysGrouped as $day)
