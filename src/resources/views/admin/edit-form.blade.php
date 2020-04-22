@@ -4,21 +4,32 @@
     @method('put')
 
     <div class="form-group">
-        <label for="title">
-            Заголовок
-        </label>
+        <label for="title">Заголовок <span class="text-danger">*</span></label>
         <input type="text"
-               class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
                id="title"
                name="title"
-               value="{{ old('title') ? old('title') : $contact->title }}"
                required
-               placeholder="Заголовок">
-        @if ($errors->has('ico'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('title') }}</strong>
-            </span>
-        @endif
+               value="{{ old("title", $contact->title) }}"
+               class="form-control @error("title") is-invalid @enderror">
+        @error("title")
+            <div class="invalid-feedback" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+    <div class="form-group">
+        <label for="address">Адрес</label>
+        <input type="text"
+               id="address"
+               name="address"
+               value="{{ old("address", $contact->address) }}"
+               class="form-control @error("address") is-invalid @enderror">
+        @error("address")
+            <div class="invalid-feedback" role="alert">
+                {{ $message }}
+            </div>
+        @enderror
     </div>
 
     <div class="form-group">

@@ -8,6 +8,10 @@
             <h4 class="contact-teaser__move-center move-center"
                 data-id="{{ $contact->model->id }}">
                 {{ $contact->model->title }}
+                @if ($contact->model->address)
+                    <br>
+                    <small class="text-muted">{{ $contact->model->address }}</small>
+                @endif
             </h4>
 
             @include("contact-page::site.days")

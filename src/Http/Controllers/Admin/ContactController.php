@@ -48,8 +48,12 @@ class ContactController extends Controller
     protected function storeValidator(array $data) {
         Validator::make($data, [
             "title" => ["required", "max:50"],
+            "address" => ["nullable", "max:250"],
+            "ico" => ["required", "max:100"],
         ], [], [
             "title" => "Заголовок",
+            "address" => "Адрес",
+            "ico" => "Ico",
         ]);
     }
 

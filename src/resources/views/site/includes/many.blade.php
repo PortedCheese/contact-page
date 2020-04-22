@@ -12,6 +12,10 @@
                     aria-controls="collapseOne"
                     data-id="{{ $contact->model->id }}">
                     {{ $contact->model->title }}
+                    @if ($contact->model->address)
+                        <br>
+                        <small class="text-muted">{{ $contact->model->address }}</small>
+                    @endif
                 </h4>
 
                 <div id="collapse-{{ $contact->model->id }}" class="collapse{{ $loop->first ? " show" : "" }}" data-parent="#accordionContacts">

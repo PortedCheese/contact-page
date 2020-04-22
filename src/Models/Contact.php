@@ -16,6 +16,7 @@ class Contact extends Model
         'description',
         'ico',
         'weight',
+        'address',
     ];
 
     protected $casts = [
