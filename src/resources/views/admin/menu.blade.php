@@ -5,7 +5,7 @@
             @isset($ico)
                 <i class="{{ $ico }}"></i>
             @endisset
-            Контакты
+            <span>Контакты</span>
         </a>
     </li>
 @endcan
