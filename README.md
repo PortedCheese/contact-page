@@ -20,6 +20,9 @@
 `CONTACT_PAGE_ZOOM_MAP` - зум для карты
 
 ### Versions
+    v1.2.1:
+        - Изменено добавление переменных в шаблоны в ServiceProvider
+    
     v1.2.0:
         - Изменен шаблон меню для sb-admin
         
