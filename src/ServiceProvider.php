@@ -3,6 +3,7 @@
 namespace PortedCheese\ContactPage;
 
 use App\Contact;
+use Illuminate\View\View;
 use PortedCheese\ContactPage\Console\Commands\ContactMakeCommand;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -39,37 +40,18 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     private function extendBlade()
     {
         // Пеменные.
-        view()->composer('contact-page::admin.layout', function ($view) {
-            $collection = Contact::getForPage();
-            $contacts = [];
-            foreach ($collection as $item) {
-                $contacts[] = [
-                    "id" => $item->id,
-                    "name" => $item->title,
-                    "url" => route("admin.contact.show", ['contact' => $item]),
-                ];
-            }
+        view()->composer('contact-page::admin.layout', function (View $view) {
+            list($collection, $contacts) = Contact::getForAdminPage();
             $view->with('contacts', $contacts);
             $view->with("collection", $collection);
-            $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
+            $view->with('apiKey', base_config()->get('contact-page', "yandexApi"));
         });
 
-        view()->composer("contact-page::site.map", function ($view) {
-            $collection = Contact::getForPage();
-            $view->with('apiKey', siteconf()->get('contact-page', "yandexApi"));
-
-            $coordinates = [];
-            foreach ($collection as $item) {
-                $coordinates[$item->id] = [
-                    'id' => $item->id,
-                    'coord' => [$item->longitude, $item->latitude],
-                    'title' => $item->title,
-                    'description' => $item->description,
-                    'ico' => $item->ico,
-                ];
-            }
+        view()->composer("contact-page::site.map", function (View $view) {
+            list($collection, $coordinates) = Contact::getForSitePage();
             $view->with("coordinates", $coordinates);
             $view->with("mapCenter", !empty($coordinates) ? reset($coordinates)['coord'] : []);
+            $view->with('apiKey', base_config()->get('contact-page', "yandexApi"));
         });
     }
 

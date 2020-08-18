@@ -66,6 +66,46 @@ class Contact extends Model
     }
 
     /**
+     * Для страницы в админке.
+     *
+     * @return array
+     */
+    public static function getForAdminPage()
+    {
+        $collection = \App\Contact::getForPage();
+        $contacts = [];
+        foreach ($collection as $item) {
+            $contacts[] = [
+                "id" => $item->id,
+                "name" => $item->title,
+                "url" => route("admin.contact.show", ['contact' => $item]),
+            ];
+        }
+        return [$collection, $contacts];
+    }
+
+    /**
+     * Для страницы на сайте.
+     *
+     * @return array
+     */
+    public static function getForSitePage()
+    {
+        $collection = \App\Contact::getForPage();
+        $coordinates = [];
+        foreach ($collection as $item) {
+            $coordinates[$item->id] = [
+                'id' => $item->id,
+                'coord' => [$item->longitude, $item->latitude],
+                'title' => $item->title,
+                'description' => $item->description,
+                'ico' => $item->ico,
+            ];
+        }
+        return [$collection, $coordinates];
+    }
+
+    /**
      * Время работы со значением по умолчанию.
      *
      * @return array|mixed
