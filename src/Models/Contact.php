@@ -201,12 +201,14 @@ class Contact extends Model
             $start = false;
             $time = false;
             $prev = false;
+            $dinerTime = false;
             foreach ($this->work_time as $day) {
                 if (! $start) {
                     $start = $day['name'];
                     $time = $day['workTime'];
+                    $dinerTime = $day['dinerTime'];
                 }
-                if ($day['workTime'] == $time) {
+                if ($day['workTime'] == $time && $day['dinerTime'] == $dinerTime) {
                     $prev = $day['name'];
                     continue;
                 }
@@ -214,14 +216,17 @@ class Contact extends Model
                     'start' => $start,
                     'end' => $prev,
                     'time' => $time,
+                    'dinerTime' => $dinerTime,
                 ];
                 $time = $day['workTime'];
                 $prev = $start = $day['name'];
+                $dinerTime = $day['dinerTime'];
             }
             $groups[] = [
                 'start' => $start,
                 'end' => $prev,
                 'time' => $time,
+                'dinerTime' => $dinerTime,
             ];
         }
         return $groups;
