@@ -3,7 +3,7 @@
         @if (count($contact->daysGrouped) == 1)
             <li class="contact-teaser__day">
                 <small class="contact-teaser__time">{{ $contact->daysGrouped[0]["time"] }}</small>
-                <small class="contact-teaser__time pl-3">{{ $contact->daysGrouped[0]["dinerTime"]? " (обед ".$contact->daysGrouped[0]["dinerTime"].")" : "(без обеда)" }}</small>
+                <small class="contact-teaser__time pl-2">{{ $contact->daysGrouped[0]["dinerTime"]? " (обед ".$contact->daysGrouped[0]["dinerTime"].")" : "(без обеда)" }}</small>
             </li>
             <li class="contact-teaser__day">
                 <small class="contact-teaser__time">Без выходных</small>
