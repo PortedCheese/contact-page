@@ -4,7 +4,7 @@
 
 @foreach ($contacts as $contact)
     <div class="col-12 col-md-6 col-lg-3 mb-3">
-        <div class="contact-teaser">
+        <div class="contact-teaser ">
             <h4 class="contact-teaser__move-center move-center"
                 data-id="{{ $contact->model->id }}">
                 {{ $contact->model->title }}
