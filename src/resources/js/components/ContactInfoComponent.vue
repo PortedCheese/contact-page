@@ -175,6 +175,15 @@
                         <button class="dropdown-item" v-on:click="socialIco = 'fab fa-telegram-plane'">
                             <i class="fab fa-telegram-plane fa-3x"></i>
                         </button>
+                        <button class="dropdown-item" v-on:click="socialIco = 'fab fa-youtube'">
+                            <i class="fab fa-youtube fa-3x"></i>
+                        </button>
+                        <button class="dropdown-item" v-on:click="socialIco = 'fab fa-whatsapp'">
+                            <i class="fab fa-whatsapp fa-3x"></i>
+                        </button>
+                        <button class="dropdown-item" v-on:click="socialIco = 'fab fa-viber'">
+                            <i class="fab fa-viber fa-3x"></i>
+                        </button>
                     </div>
                 </div>
                 <input type="text"
