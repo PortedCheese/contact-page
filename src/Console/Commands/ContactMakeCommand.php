@@ -32,6 +32,8 @@ class ContactMakeCommand extends BaseConfigModelCommand
      */
     protected $description = 'Create contact config';
 
+    protected $vendorName = 'PortedCheese';
+
     protected $packageName = "ContactPage";
 
     /**
