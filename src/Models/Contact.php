@@ -98,7 +98,7 @@ class Contact extends Model
                 'id' => $item->id,
                 'coord' => [$item->longitude, $item->latitude],
                 'title' => $item->title,
-                'description' => $item->description,
+                'description' => "<p class='text-muted'>".$item->address."</p>".$item->description,
                 'ico' => $item->ico,
             ];
         }
