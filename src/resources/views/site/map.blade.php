@@ -1,5 +1,5 @@
 @push('js-lib')
-    <script src="https://api-maps.yandex.ru/2.1/?apikey={{ $apiKey }}&lang=ru_RU"
+    <script src="https://api-maps.yandex.ru/2.1/?apikey={{ $apiKey }}&lang=ru_RU&loadByRequire=1"
             type="text/javascript">
     </script>
 @endpush

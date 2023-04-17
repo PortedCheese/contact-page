@@ -20,6 +20,12 @@
 `CONTACT_PAGE_ZOOM_MAP` - зум для карты
 
 ### Versions
+    v1.4.7:
+        - site.map:  loadByRequire=1
+    v1.4.6: 
+        - Model Contact: add addrees to baloon
+    v1.4.5: 
+        - VendorName
     v1.4.4: 
         - Обновлен перечень иконок в компоненте ContactInfoComponent
     v1.4.3: 
