@@ -9,7 +9,7 @@
             return {
                 points: [],
                 map: false,
-                isLoaded: false
+                isLoaded: false,
             }
         },
         created () {
@@ -20,8 +20,10 @@
         },
         methods: {
             handleScroll (event) {
-              if (window.scrollY > document.getElementById('page-map').offsetTop - this.mapSize
-                  && ! this.isLoaded) {
+              var scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+              var scrollY = window.scrollY
+              if (scrollY > (document.getElementById('page-map').offsetTop - this.mapSize * 1.5) && ! this.isLoaded)
+              {
                 ymaps.ready(this.initMap);
                 this.isLoaded = true
               }
@@ -73,7 +75,13 @@
             },
         },
         mounted() {
+          var clientHeight = document.documentElement.clientHeight;
+          var mapOffsetTop = document.getElementById('page-map').offsetTop;
 
+          if (  clientHeight >= mapOffsetTop  && ! this.isLoaded) {
+            ymaps.ready(this.initMap);
+            this.isLoaded = true
+          }
         }
     }
 </script>

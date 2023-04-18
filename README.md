@@ -20,6 +20,9 @@
 `CONTACT_PAGE_ZOOM_MAP` - зум для карты
 
 ### Versions
+    v1.4.9:
+        Fix load on scroll 
+            - php artisan vendor:publish --provider="PortedCheese\ContactPage\ServiceProvider" --tag=public --force
     v1.4.8:
         Change map component - load on scroll:
             - php artisan vendor:publish --provider="PortedCheese\ContactPage\ServiceProvider" --tag=public --force
