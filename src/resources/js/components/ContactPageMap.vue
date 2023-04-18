@@ -8,10 +8,24 @@
         data() {
             return {
                 points: [],
-                map: false
+                map: false,
+                isLoaded: false
             }
         },
+        created () {
+          window.addEventListener('scroll', this.handleScroll);
+        },
+        unmounted () {
+          window.removeEventListener('scroll', this.handleScroll);
+        },
         methods: {
+            handleScroll (event) {
+              if (window.scrollY > document.getElementById('page-map').offsetTop - this.mapSize
+                  && ! this.isLoaded) {
+                ymaps.ready(this.initMap);
+                this.isLoaded = true
+              }
+            },
             initMap () {
                 // Создание карты.
                 let pageMap = this.map = new ymaps.Map("page-map", {
@@ -56,10 +70,10 @@
                         }, 1000);
                     });
                 });
-            }
+            },
         },
         mounted() {
-            ymaps.ready(this.initMap);
+
         }
     }
 </script>
