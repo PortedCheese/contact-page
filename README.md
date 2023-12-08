@@ -20,6 +20,12 @@
 `CONTACT_PAGE_ZOOM_MAP` - зум для карты
 
 ### Versions
+    v1.4.12:
+        Добавлен класс move-center_noscroll 
+           - php artisan vendor:publish --provider="PortedCheese\ContactPage\ServiceProvider" --tag=public --force
+    v1.4.11:
+        Добавлен шаблон site.includes.too-many для вывода в site.page
+            - чтобы использовать новый шаблон, проверьте переопределение  site.page
     v1.4.9:
         Fix load on scroll 
             - php artisan vendor:publish --provider="PortedCheese\ContactPage\ServiceProvider" --tag=public --force

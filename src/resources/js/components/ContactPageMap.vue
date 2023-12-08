@@ -72,6 +72,17 @@
                         }, 1000);
                     });
                 });
+                $('.move-center_noscroll').each(function (index, element) {
+                    $(element).on('click', function() {
+                        let id = $(this).attr('data-id');
+                        let coordinates = pointsCoordinates[id].coord;
+                        pageMap.setCenter(coordinates, this.zoom, {
+                            duration: 400
+                        }).then(function () {
+                            pointsObjects[id].balloon.open();
+                        });
+                    });
+                });
             },
         },
         mounted() {
