@@ -9,6 +9,8 @@
         @includeIf("contact-page::site.includes.single")
     @elseif (count($contacts) <= 4)
         @includeIf("contact-page::site.includes.middle")
+    @elseif (count($contacts) > 8)
+        @includeIf("contact-page::site.includes.too-many")
     @elseif (count($contacts) > 4)
         @includeIf("contact-page::site.includes.many")
     @else
