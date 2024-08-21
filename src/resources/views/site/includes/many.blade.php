@@ -6,8 +6,8 @@
         @foreach ($contacts as $contact)
             <div class="contact-teaser contact-teaser_single">
                 <h4 class="contact-teaser__move-center move-center"
-                    data-toggle="collapse"
-                    data-target="#collapse-{{ $contact->model->id }}"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse-{{ $contact->model->id }}"
                     aria-expanded="{{ $loop->first ? "true" : "false" }}"
                     aria-controls="collapseOne"
                     data-id="{{ $contact->model->id }}">
@@ -18,7 +18,7 @@
                     @endif
                 </h4>
 
-                <div id="collapse-{{ $contact->model->id }}" class="collapse{{ $loop->first ? " show" : "" }}" data-parent="#accordionContacts">
+                <div id="collapse-{{ $contact->model->id }}" class="collapse{{ $loop->first ? " show" : "" }}" data-bs-parent="#accordionContacts">
                     @include("contact-page::site.days")
 
                     @if ($contact->model->description)

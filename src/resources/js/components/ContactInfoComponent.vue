@@ -15,19 +15,16 @@
                        class="form-control"
                        v-model="phone"
                        placeholder="Телефон">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success"
+                <button class="btn btn-outline-success"
                             v-on:click="addPhone"
                             :disabled="phone === ''"
                             type="button">
                         Добавить
-                    </button>
-                </div>
+                </button>
             </div>
 
             <div class="input-group mb-3" v-for="(item, index) in phones">
-                <div class="input-group-prepend">
-                    <div class="btn-group"
+                <div class="btn-group"
                          role="group">
                         <button type="submit"
                                 v-if="index >= 1"
@@ -41,8 +38,10 @@
                                 class="btn btn-outline-secondary">
                             <i class="fas fa-arrow-down"></i>
                         </button>
-                    </div>
-                    <label class="input-group-text mb-0" :for="'phone-' + index">
+                </div>
+
+                <div class="input-group-text">
+                    <label class="mb-0" :for="'phone-' + index">
                         {{ item.value }}
                     </label>
                 </div>
@@ -51,13 +50,12 @@
                        class="form-control"
                        placeholder="Комментарий"
                        v-model="item.comment">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-danger"
+
+                <button class="btn btn-outline-danger"
                             v-on:click="deletePhone(index)"
                             type="button">
                         Удалить
-                    </button>
-                </div>
+                </button>
             </div>
         </div>
 
@@ -69,34 +67,32 @@
                        class="form-control"
                        v-model="email"
                        placeholder="E-mail">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success"
+
+                <button class="btn btn-outline-success"
                             v-on:click="addEmail"
                             :disabled="email === ''"
                             type="button">
                         Добавить
-                    </button>
-                </div>
+                </button>
+
             </div>
 
             <div class="input-group mb-3" v-for="(item, index) in emails">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" :for="'email-' + index">
-                        {{ item.value }}
-                    </label>
-                </div>
+
+                <label class="input-group-text" :for="'email-' + index">
+                    {{ item.value }}
+                </label>
+
                 <input type="text"
                        :id="'email-' + index"
                        class="form-control"
                        placeholder="Комментарий"
                        v-model="item.comment">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-danger"
+                <button class="btn btn-outline-danger"
                             v-on:click="deleteEmail(index)"
                             type="button">
                         Удалить
-                    </button>
-                </div>
+                </button>
             </div>
         </div>
 
@@ -119,23 +115,21 @@
             </div>
 
             <div class="input-group mb-3" v-for="(item, index) in webs">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" :for="'web-' + index">
+                <label class="input-group-text" :for="'web-' + index">
                         {{ item.value }}
-                    </label>
-                </div>
+                </label>
                 <input type="text"
                        :id="'web-' + index"
                        class="form-control"
                        placeholder="Комментарий"
                        v-model="item.comment">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-danger"
+
+                <button class="btn btn-outline-danger"
                             v-on:click="deleteWeb(index)"
                             type="button">
                         Удалить
-                    </button>
-                </div>
+                </button>
+
             </div>
         </div>
 
@@ -151,7 +145,7 @@
                     </button>
                     <button type="button"
                             class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown"
+                            data-bs-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>
@@ -178,8 +172,14 @@
                         <button class="dropdown-item" v-on:click="socialIco = 'fab fa-youtube'">
                             <i class="fab fa-youtube fa-3x"></i>
                         </button>
+                        <button class="dropdown-item" v-on:click="socialIco = 'fa-brands fa-square-youtube'">
+                          <i class="fa-brands fa-square-youtube fa-3x"></i>
+                        </button>
                         <button class="dropdown-item" v-on:click="socialIco = 'fab fa-whatsapp'">
                             <i class="fab fa-whatsapp fa-3x"></i>
+                        </button>
+                        <button class="dropdown-item" v-on:click="socialIco = 'fa-brands fa-square-whatsapp '">
+                          <i class="fa-brands fa-square-whatsapp fa-3x"></i>
                         </button>
                         <button class="dropdown-item" v-on:click="socialIco = 'fab fa-viber'">
                             <i class="fab fa-viber fa-3x"></i>
@@ -190,34 +190,33 @@
                        class="form-control"
                        v-model="social"
                        placeholder="Ссылка">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success"
+
+                <button class="btn btn-outline-success"
                             v-on:click="addSocial"
                             :disabled="social === ''"
                             type="button">
                         Добавить
-                    </button>
-                </div>
+                </button>
             </div>
 
             <div class="input-group mb-3" v-for="(item, index) in socials">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" :for="'social-' + index">
-                        <i :class="item.ico" class="pr-1"></i> {{ item.value }}
-                    </label>
-                </div>
+
+                <label class="input-group-text" :for="'social-' + index">
+                    <i :class="item.ico" class="pr-1"></i> {{ item.value }}
+                </label>
+
                 <input type="text"
                        :id="'social-' + index"
                        class="form-control"
                        placeholder="Комментарий"
                        v-model="item.comment">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-danger"
+
+                <button class="btn btn-outline-danger"
                             v-on:click="deleteSocial(index)"
                             type="button">
                         Удалить
-                    </button>
-                </div>
+                </button>
+
             </div>
         </div>
     </div>

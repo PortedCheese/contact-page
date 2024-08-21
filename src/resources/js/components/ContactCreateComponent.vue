@@ -3,37 +3,40 @@
         <div class="card-header">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active"
+                    <button class="nav-link active"
                        id="pills-info-tab"
-                       data-toggle="pill"
-                       href="#pills-info"
+                       data-bs-toggle="pill"
+                       data-bs-target="#pills-info"
                        role="tab"
+                       type="button"
                        aria-controls="pills-info"
                        aria-selected="true">
                         Контакты
-                    </a>
+                    </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
+                    <button class="nav-link"
                        id="pills-map-tab"
-                       data-toggle="pill"
-                       href="#pills-map"
+                       data-bs-toggle="pill"
+                       data-bs-target="#pills-map"
                        role="tab"
+                       type="button"
                        aria-controls="pills-map"
                        aria-selected="false">
                         Карта
-                    </a>
+                    </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
+                    <button class="nav-link"
                        id="pills-work-tab"
-                       data-toggle="pill"
-                       href="#pills-work"
+                       data-bs-toggle="pill"
+                       data-bs-target="#pills-work"
+                       type="button"
                        role="tab"
                        aria-controls="pills-work"
                        aria-selected="false">
                         Рабочие дни
-                    </a>
+                    </button>
                 </li>
             </ul>
         </div>
