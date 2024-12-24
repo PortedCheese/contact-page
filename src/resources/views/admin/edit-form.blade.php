@@ -40,7 +40,7 @@
         <textarea name="description"
                   id="ckDescription"
                   cols="30"
-                  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"
+                  class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }} tiny"
                   rows="5">{{ old('description') ? old('description') : $contact->description }}</textarea>
     </div>
 
